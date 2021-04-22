@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
-import '../Widgets/create_new_database.dart';
+import 'package:get/get.dart';
 
 class IntroPage extends StatelessWidget {
   @override
@@ -11,7 +10,7 @@ class IntroPage extends StatelessWidget {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset('assets/images/shankLogo.svg'),
+          SvgPicture.asset('assets/images/shankLogov3.svg'),
           Container(
             margin: EdgeInsets.fromLTRB(60, 0, 40, 60),
             child: Text(
@@ -25,10 +24,10 @@ class IntroPage extends StatelessWidget {
           ),
           TextButton(
               onPressed: () async {
-                showCreateDatabaseDialog();
+                Get.toNamed('/createDatabase');
               },
               child: Text('Create New Database')),
-          TextButton(onPressed: () {}, child: Text('Open Existing'))
+          TextButton(onPressed: () {}, child: Text('Open Existing')),
         ],
       )),
     );
