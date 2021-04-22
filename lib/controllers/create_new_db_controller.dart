@@ -11,7 +11,7 @@ class CreateNewDbController extends GetxController {
     var _path = await getDatabasesPath();
     // String vv = _path.path;
     print('PATH: $_path');
-    Directory _dir = Directory("/data/user/0/com.example.shank/databases/");
+    Directory _dir = Directory("/data/user/0/com.example.shank/databases");
     var content = _dir.listSync();
     print('DIRECTORY: $content');
     super.onInit();

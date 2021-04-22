@@ -84,7 +84,8 @@ class CreateDatabase extends StatelessWidget {
                                     BorderRadius.all(Radius.circular(12)),
                                 borderSide:
                                     BorderSide(color: Colors.green, width: 4)),
-                            errorText: _createDbController.dbNameError,
+                            errorText:
+                                _createDbController.dbPasswordOneErrorMsg,
                             filled: true,
                             fillColor: Colors.white70,
                             labelText: 'Database Password',
@@ -111,7 +112,8 @@ class CreateDatabase extends StatelessWidget {
                                     BorderRadius.all(Radius.circular(12)),
                                 borderSide:
                                     BorderSide(color: Colors.green, width: 4)),
-                            errorText: _createDbController.dbNameError,
+                            errorText:
+                                _createDbController.dbPasswordTwoErrorMsg,
                             filled: true,
                             fillColor: Colors.white70,
                             labelText: 'Confirm Database Password',
