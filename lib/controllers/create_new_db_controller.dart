@@ -17,6 +17,8 @@ class CreateNewDbController extends GetxController {
     super.onInit();
   }
 
+  RxBool _passwordOneObscureSet = true.obs;
+  RxBool _passwordTwoObscureSet = true.obs;
   RxString _dbNameErrorMsg = RxString(null);
   RxString _dbPasswordOneErrorMsg = RxString(null);
   RxString _dbPasswordTwoErrorMsg = RxString(null);
@@ -31,6 +33,11 @@ class CreateNewDbController extends GetxController {
   String get dbPasswordOneErrorMsg => this._dbPasswordOneErrorMsg.value;
   String get dbPasswordTwoErrorMsg => this._dbPasswordTwoErrorMsg.value;
   Database get database => this._database.value;
+  bool get passwordOneObscureSet => this._passwordOneObscureSet.value;
+  bool get passwordTwoObscureSet => this._passwordTwoObscureSet.value;
+
+  set setPasswordOneObscure(value) => this._passwordOneObscureSet.value = value;
+  set setPasswordTwoObscure(value) => this._passwordTwoObscureSet.value = value;
 
   set setDbNameError(value) => this._dbNameErrorMsg.value = value;
 

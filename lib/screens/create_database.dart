@@ -71,8 +71,17 @@ class CreateDatabase extends StatelessWidget {
                     SizedBox(height: 10),
                     Obx(
                       () => TextFormField(
+                        obscureText: _createDbController.passwordOneObscureSet,
                         controller: _createDbController.passwordOneController,
                         decoration: InputDecoration(
+                            suffixIcon: GestureDetector(
+                              child: _createDbController.passwordOneObscureSet
+                                  ? Icon(Icons.lock)
+                                  : Icon(Icons.lock_open),
+                              onTap: () => _createDbController
+                                      .setPasswordOneObscure =
+                                  !_createDbController.passwordOneObscureSet,
+                            ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.black),
                               borderRadius: BorderRadius.all(
@@ -99,8 +108,17 @@ class CreateDatabase extends StatelessWidget {
                     ),
                     Obx(
                       () => TextFormField(
+                        obscureText: _createDbController.passwordTwoObscureSet,
                         controller: _createDbController.passwordTwoController,
                         decoration: InputDecoration(
+                            suffixIcon: GestureDetector(
+                              child: _createDbController.passwordTwoObscureSet
+                                  ? Icon(Icons.lock)
+                                  : Icon(Icons.lock_open),
+                              onTap: () => _createDbController
+                                      .setPasswordTwoObscure =
+                                  !_createDbController.passwordTwoObscureSet,
+                            ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.black),
                               borderRadius: BorderRadius.all(
