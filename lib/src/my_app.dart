@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shank/controllers/bindings/initial_bindings.dart';
-import 'package:shank/routes/app_routes.dart';
-import 'package:shank/screens/create_database.dart';
-import 'package:shank/screens/intro_page.dart';
+
+import '../controllers/bindings/initial_bindings.dart';
+import '../routes/app_routes.dart';
 
 class MyApp extends StatelessWidget {
   @override

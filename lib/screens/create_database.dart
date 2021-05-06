@@ -6,8 +6,7 @@ import 'package:shank/controllers/create_new_db_controller.dart';
 import 'package:shank/utils/db_helper.dart';
 
 class CreateDatabase extends StatelessWidget {
-  final CreateNewDbController _createDbController =
-      Get.put<CreateNewDbController>(CreateNewDbController());
+  final CreateNewDbController _createDbController = Get.put<CreateNewDbController>(CreateNewDbController());
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +34,7 @@ class CreateDatabase extends StatelessWidget {
             Card(
               // color: Color.fromRGBO(217, 213, 202, .8),
               color: Colors.green[50],
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
               margin: EdgeInsets.all(10),
               elevation: 0,
               child: Container(
@@ -55,16 +53,13 @@ class CreateDatabase extends StatelessWidget {
                               ),
                             ),
                             border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12)),
-                                borderSide:
-                                    BorderSide(color: Colors.green, width: 4)),
+                                borderRadius: BorderRadius.all(Radius.circular(12)),
+                                borderSide: BorderSide(color: Colors.green, width: 4)),
                             errorText: _createDbController.dbNameError,
                             filled: true,
                             fillColor: Colors.white70,
                             labelText: 'Database Name',
-                            labelStyle:
-                                GoogleFonts.inconsolata(color: Colors.black),
+                            labelStyle: GoogleFonts.inconsolata(color: Colors.black),
                             hintText: 'Enter Database Name'),
                       ),
                     ),
@@ -75,11 +70,9 @@ class CreateDatabase extends StatelessWidget {
                         controller: _createDbController.passwordOneController,
                         decoration: InputDecoration(
                             suffixIcon: GestureDetector(
-                              child: _createDbController.passwordOneObscureSet
-                                  ? Icon(Icons.lock)
-                                  : Icon(Icons.lock_open),
-                              onTap: () => _createDbController
-                                      .setPasswordOneObscure =
+                              child:
+                                  _createDbController.passwordOneObscureSet ? Icon(Icons.lock) : Icon(Icons.lock_open),
+                              onTap: () => _createDbController.setPasswordOneObscure =
                                   !_createDbController.passwordOneObscureSet,
                             ),
                             focusedBorder: OutlineInputBorder(
@@ -89,17 +82,13 @@ class CreateDatabase extends StatelessWidget {
                               ),
                             ),
                             border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12)),
-                                borderSide:
-                                    BorderSide(color: Colors.green, width: 4)),
-                            errorText:
-                                _createDbController.dbPasswordOneErrorMsg,
+                                borderRadius: BorderRadius.all(Radius.circular(12)),
+                                borderSide: BorderSide(color: Colors.green, width: 4)),
+                            errorText: _createDbController.dbPasswordOneErrorMsg,
                             filled: true,
                             fillColor: Colors.white70,
                             labelText: 'Database Password',
-                            labelStyle:
-                                GoogleFonts.inconsolata(color: Colors.black),
+                            labelStyle: GoogleFonts.inconsolata(color: Colors.black),
                             hintText: 'Enter Database Password'),
                       ),
                     ),
@@ -112,11 +101,9 @@ class CreateDatabase extends StatelessWidget {
                         controller: _createDbController.passwordTwoController,
                         decoration: InputDecoration(
                             suffixIcon: GestureDetector(
-                              child: _createDbController.passwordTwoObscureSet
-                                  ? Icon(Icons.lock)
-                                  : Icon(Icons.lock_open),
-                              onTap: () => _createDbController
-                                      .setPasswordTwoObscure =
+                              child:
+                                  _createDbController.passwordTwoObscureSet ? Icon(Icons.lock) : Icon(Icons.lock_open),
+                              onTap: () => _createDbController.setPasswordTwoObscure =
                                   !_createDbController.passwordTwoObscureSet,
                             ),
                             focusedBorder: OutlineInputBorder(
@@ -126,17 +113,13 @@ class CreateDatabase extends StatelessWidget {
                               ),
                             ),
                             border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12)),
-                                borderSide:
-                                    BorderSide(color: Colors.green, width: 4)),
-                            errorText:
-                                _createDbController.dbPasswordTwoErrorMsg,
+                                borderRadius: BorderRadius.all(Radius.circular(12)),
+                                borderSide: BorderSide(color: Colors.green, width: 4)),
+                            errorText: _createDbController.dbPasswordTwoErrorMsg,
                             filled: true,
                             fillColor: Colors.white70,
                             labelText: 'Confirm Database Password',
-                            labelStyle:
-                                GoogleFonts.inconsolata(color: Colors.black),
+                            labelStyle: GoogleFonts.inconsolata(color: Colors.black),
                             hintText: 'Confirm Database Password'),
                       ),
                     ),
@@ -148,20 +131,23 @@ class CreateDatabase extends StatelessWidget {
                       children: [
                         TextButton(
                           onPressed: () {
+                            _clearTextEditingControllers();
                             Get.offNamed('/');
                           },
                           child: Text('Cancel'),
                         ),
                         TextButton(
-                            onPressed: () {
-                              if (_createDbController
-                                  .validateNewDatabaseForm()) {
-                                DBHelper.initDB();
+                            onPressed: () async {
+                              if (_createDbController.validateNewDatabaseForm()) {
+                                await DBHelper.initDB();
+                                //_createDbController.setListOfAvailDB = _createDbController.databaseNameController.text;
+
+                                _clearTextEditingControllers();
                               } else {
                                 return;
                               }
-                              //!Create database call here
-                              Get.offNamed('/homePage');
+                              Get.offNamed('/');
+                              _clearTextEditingControllers();
                             },
                             child: Text('Save'))
                       ],
@@ -174,5 +160,11 @@ class CreateDatabase extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _clearTextEditingControllers() {
+    _createDbController.databaseNameController.clear();
+    _createDbController.passwordOneController.clear();
+    _createDbController.passwordTwoController.clear();
   }
 }

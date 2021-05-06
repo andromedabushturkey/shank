@@ -2,11 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:path/path.dart';
 
 class CreateNewDbController extends GetxController {
   @override
   void onInit() async {
-    getExistingDB();
+    testList;
     super.onInit();
   }
 
@@ -24,7 +25,7 @@ class CreateNewDbController extends GetxController {
   final TextEditingController databaseNameController = TextEditingController();
   final TextEditingController passwordOneController = TextEditingController();
   final TextEditingController passwordTwoController = TextEditingController();
-  List<FileSystemEntity> get listOfAvailDb => this._listOfAvailDB.value;
+  List<FileSystemEntity> get testList => buildDatabaseList();
   String get dbNameError => this._dbNameErrorMsg.value;
   String get dbPasswordOneErrorMsg => this._dbPasswordOneErrorMsg.value;
   String get dbPasswordTwoErrorMsg => this._dbPasswordTwoErrorMsg.value;
@@ -46,7 +47,7 @@ class CreateNewDbController extends GetxController {
   set setDbPasswordOneErrorMsg(value) => this._dbPasswordOneErrorMsg.value = value;
 
   set setDbpasswordTwoErrorMsg(value) => this._dbPasswordTwoErrorMsg.value = value;
-  set setListOfAvailDB(value) => this._listOfAvailDB.add(value);
+  set setListOfAvailDB(value) => this._listOfAvailDB.addAll(value);
 //Validate the DB creation form to make sure the info provided is complete
   bool validateNewDatabaseForm() {
     if (databaseNameController.text.isEmpty) {
@@ -71,7 +72,10 @@ class CreateNewDbController extends GetxController {
     if (await _dir.exists()) {
       var _dirContent = _dir.listSync();
       for (var item in _dirContent) {
-        setListOfAvailDB = item;
+        var stat = FileStat.statSync(item.path);
+        String _fileName = basename(item.path);
+        setDatabaseList = _fileName;
+        setDateModified = stat.modified;
       }
       print(_databaseList);
     } else {
@@ -89,8 +93,8 @@ class CreateNewDbController extends GetxController {
   buildDatabaseList() {
     Directory _dir = Directory("/data/user/0/com.example.shank/databases");
     if (_dir.existsSync()) {
-      setListOfAvailDB = _dir.listSync();
-      print('NewTESTLIST: ${_listOfAvailDB.value}');
+     setListOfAvailDB = _dir.listSync(); 
+			print('NewTESTLIST: ${_listOfAvailDB.value}');
       return _dir.listSync();
     } else {
       Directory("/data/user/0/com.example.shank/databases").createSync(recursive: true);
