@@ -10,7 +10,7 @@ Future<void> showPasswordDialog(int index) async {
     title: 'Database Password',
     confirm: TextButton(
       onPressed: () {
-        DBHelper.openDB(_controller.databaseList[index]);
+        DBHelper.openDB(_controller.listOfAvailDb[index]);
       },
       child: Text('Ok'),
     ),

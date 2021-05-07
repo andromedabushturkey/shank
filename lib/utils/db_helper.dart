@@ -31,10 +31,7 @@ class DBHelper {
         },
       );
       _controller.getExistingDB();
-      //assign active db to controller variable
       await _activeDB.close();
-      var status = _activeDB.isOpen;
-      print('DBSTATUS: $status');
     } catch (e) {
       Get.snackbar('Error', 'Unable to create database');
     }
