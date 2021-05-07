@@ -21,14 +21,14 @@ class AvailableDbList extends StatelessWidget {
             scrollDirection: Axis.vertical,
             itemCount: _createNewDbController.listOfAvailDb.length,
             itemBuilder: (BuildContext context, int index) {
-              String _fileNamer = basename(_createNewDbController.listOfAvailDb[index].path);
+              String _databaseName = basename(_createNewDbController.listOfAvailDb[index].path);
               return ListTile(
                 onTap: () async {
                   // await showPasswordDialog(index);
                   //DBHelper.openDB(_dbList[index]);
                   print('DBINFO ${_createNewDbController.listOfAvailDb[index]}');
                 },
-                title: Text(_fileNamer),
+                title: Text(_databaseName),
                 leading: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -37,6 +37,15 @@ class AvailableDbList extends StatelessWidget {
                       size: 20,
                     ),
                   ],
+                ),
+                trailing: GestureDetector(
+                  child: Icon(Icons.delete_outline),
+                  onTap: () {
+                    //delete file on filesystem
+                    _createNewDbController.listOfAvailDb[index].deleteSync();
+                    //remove file from tracking list
+                    _createNewDbController.removeDbOfAvailDB = index;
+                  },
                 ),
               );
             },

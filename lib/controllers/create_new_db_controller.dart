@@ -45,7 +45,7 @@ class CreateNewDbController extends GetxController {
 
   set setDbpasswordTwoErrorMsg(value) => this._dbPasswordTwoErrorMsg.value = value;
   set setListOfAvailDB(value) => this._listOfAvailDB.add(value);
-
+  set removeDbOfAvailDB(value) => this._listOfAvailDB.removeAt(value);
   //Validate the DB creation form to make sure the info provided is complete
   bool validateNewDatabaseForm() {
     if (databaseNameController.text.isEmpty) {
