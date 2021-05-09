@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
-
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class CreateNewDbController extends GetxController {
   @override
@@ -74,5 +76,16 @@ class CreateNewDbController extends GetxController {
     } else {
       print('directory is empty');
     }
+  }
+
+  Digest getDBDigest(int index) {
+    var _bytes = utf8.encode(_listOfAvailDB[index].path);
+    return md5.convert(_bytes);
+  }
+
+  String getDBLastModDdate(int index) {
+    var _fileStats = _listOfAvailDB[index].statSync();
+    DateTime _date = _fileStats.modified;
+    return DateFormat.yMEd().add_jms().format(_date);
   }
 }

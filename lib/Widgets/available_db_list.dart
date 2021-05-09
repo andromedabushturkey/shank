@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:path/path.dart';
 import 'package:shank/controllers/create_new_db_controller.dart';
 
+import 'db_info_bottomsheet_widget.dart';
+
 class AvailableDbList extends StatelessWidget {
   const AvailableDbList({
     Key key,
@@ -38,14 +40,23 @@ class AvailableDbList extends StatelessWidget {
                     ),
                   ],
                 ),
-                trailing: GestureDetector(
-                  child: Icon(Icons.delete_outline),
-                  onTap: () {
-                    //delete file on filesystem
-                    _createNewDbController.listOfAvailDb[index].deleteSync();
-                    //remove file from tracking list
-                    _createNewDbController.removeDbOfAvailDB = index;
-                  },
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    GestureDetector(
+                      child: Icon(Icons.info_outline),
+                      onTap: () {
+                        Get.bottomSheet(DbInfoBottomSheetWidget(index));
+                      },
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    GestureDetector(
+                      child: Icon(Icons.delete_outline),
+                      onTap: () {},
+                    )
+                  ],
                 ),
               );
             },
