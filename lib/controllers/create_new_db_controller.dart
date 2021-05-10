@@ -18,7 +18,6 @@ class CreateNewDbController extends GetxController {
   RxString _dbNameErrorMsg = RxString(null);
   RxString _dbPasswordOneErrorMsg = RxString(null);
   RxString _dbPasswordTwoErrorMsg = RxString(null);
-  RxList<DateTime> _dateModified = RxList([]);
 
   //TextEditingControllers for creating databasedf
   final TextEditingController databaseNameController = TextEditingController();
@@ -34,12 +33,8 @@ class CreateNewDbController extends GetxController {
   //getter that contains list of available databases
   List<FileSystemEntity> get listOfAvailDb => this._listOfAvailDB;
 
-  List<DateTime> get dateModified => this._dateModified.value;
-
   set setPasswordOneObscure(value) => this._passwordOneObscureSet.value = value;
   set setPasswordTwoObscure(value) => this._passwordTwoObscureSet.value = value;
-
-  set setDateModified(value) => this._dateModified.add(value);
 
   set setDbNameError(value) => this._dbNameErrorMsg.value = value;
 
@@ -48,6 +43,7 @@ class CreateNewDbController extends GetxController {
   set setDbpasswordTwoErrorMsg(value) => this._dbPasswordTwoErrorMsg.value = value;
   set setListOfAvailDB(value) => this._listOfAvailDB.add(value);
   set removeDbOfAvailDB(value) => this._listOfAvailDB.removeAt(value);
+
   //Validate the DB creation form to make sure the info provided is complete
   bool validateNewDatabaseForm() {
     if (databaseNameController.text.isEmpty) {
