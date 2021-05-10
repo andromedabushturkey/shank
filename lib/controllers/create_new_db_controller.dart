@@ -84,4 +84,14 @@ class CreateNewDbController extends GetxController {
     DateTime _date = _fileStats.modified;
     return DateFormat.yMEd().add_jms().format(_date);
   }
+
+  Future removeDbFromFileSystem(int index) async {
+    print('INDEX: $index');
+    print('file for deletion ${listOfAvailDb[index]}');
+    try {
+      _listOfAvailDB[index].deleteSync();
+    } catch (e) {
+      print('DELETE ERROR: $e');
+    }
+  }
 }

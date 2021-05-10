@@ -54,8 +54,9 @@ class AvailableDbList extends StatelessWidget {
                     ),
                     GestureDetector(
                       child: Icon(Icons.delete_outline),
-                      onTap: () {
+                      onTap: () async {
                         print('delete');
+                        await _createNewDbController.removeDbFromFileSystem(index);
                         _createNewDbController.removeDbOfAvailDB = index;
                       },
                     )
