@@ -27,7 +27,12 @@ class DBHelper {
         version: _version,
         password: _password,
         onCreate: (db, version) {
-          db.execute("CREATE TABLE $_tableName(id INTEGER PRIMARY KEY, title STRING, note TEXT)");
+          db.execute(
+              '''CREATE TABLE ${_tableName + 'Daily'}(id INTEGER PRIMARY KEY, Date INT, Description TEXT, Deposit NUM, Withdrawl NUM, Notes TEXT )''');
+          db.execute(
+              '''CREATE TABLE ${_tableName + 'Credit'}(id INTEGER PRIMARY KEY, Date INT, Description TEXT, Deposit NUM, Withdrawl NUM, Notes TEXT, Balance NUM )''');
+          db.execute(
+              '''CREATE TABLE ${_tableName + 'Recurring'}(id INTEGER PRIMARY KEY, Date INT, Description TEXT, Deposit NUM, Withdrawl NUM, Notes TEXT )''');
         },
       );
       _controller.getExistingDB();
