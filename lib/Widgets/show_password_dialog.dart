@@ -12,13 +12,14 @@ Future<void> showPasswordDialog(int index) async {
   await Get.defaultDialog(
     title: 'Database Password',
     confirm: TextButton(
-      onPressed: () {
+      onPressed: () async {
         FileSystemEntity _fileSysEntity = _controller.listOfAvailDb[index];
         String _filePath = _fileSysEntity.path;
         String _fileName = basename(_filePath);
-        print(_fileName);
+        print('PASSWORD OPEN: $_fileName');
 
-        DBHelper.openDB(_fileName);
+        await DBHelper.openDB(_fileName);
+        Get.back();
       },
       child: Text('Ok'),
     ),

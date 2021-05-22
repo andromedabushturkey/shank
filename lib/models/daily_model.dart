@@ -4,11 +4,13 @@ class DailyModel {
   String _description;
   double _deposit;
   double _withdrawl;
+  double _accountBalance;
   String _notes;
 
-  DailyModel([this._id, this._date, this._description, this._deposit, this._withdrawl, this._notes]);
+  DailyModel([this._date, this._description, this._deposit, this._withdrawl, this._notes, this._accountBalance]);
 
-  DailyModel.withId([this._id, this._date, this._description, this._deposit, this._withdrawl, this._notes]);
+  DailyModel.withId(
+      [this._id, this._date, this._description, this._deposit, this._withdrawl, this._notes, this._accountBalance]);
 
   int get id => this._id;
 
@@ -19,6 +21,8 @@ class DailyModel {
   double get deposit => this._deposit;
 
   double get withdrawl => this._withdrawl;
+
+  double get accountBalance => this._accountBalance;
 
   String get notes => this._notes;
 
@@ -38,7 +42,35 @@ class DailyModel {
     this._withdrawl = newWithdrawl;
   }
 
+  set accountBalance(double newAccountBalance) {
+    this._accountBalance = newAccountBalance;
+  }
+
   set notes(String newNote) {
     this._notes = newNote;
+  }
+
+  //convert Daily object to Map
+  Map<String, dynamic> toMap() {
+    Map map = Map<String, dynamic>();
+
+    if (_id != null) {
+      map['id'] = _id;
+    }
+    map['date'] = _date;
+    map['description'] = _description;
+    map['deposit'] = _deposit;
+    map['withdrawl'] = _withdrawl;
+    map['notes'] = _notes;
+
+    return map;
+  }
+
+  DailyModel.fromMapObject(Map<String, dynamic> map) {
+    this._date = map['date'];
+    this._description = map['description'];
+    this._deposit = map['deposit'];
+    this._withdrawl = map['withdrawl'];
+    this._notes = map['notes'];
   }
 }

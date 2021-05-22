@@ -7,6 +7,10 @@ import 'package:shank/Widgets/daily_finance_widget.dart';
 import 'package:shank/Widgets/floating_action_button_widget.dart';
 import 'package:shank/Widgets/recurring_finance_widget.dart';
 import 'package:shank/controllers/bottom_nav_bar_controller.dart';
+import 'package:shank/controllers/create_new_db_controller.dart';
+import 'package:shank/models/account_balance.dart';
+import 'package:shank/models/daily_model.dart';
+import 'package:shank/utils/db_helper.dart';
 
 class HomePage extends StatelessWidget {
   final BottomNavBarController _navBarController = Get.put<BottomNavBarController>(BottomNavBarController());
@@ -21,12 +25,32 @@ class HomePage extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Get.defaultDialog(
-                  title: 'Account Balance',
-                  middleText: 'Set or modify current account balance',
-                  content: Column(
-                    children: [TextField(decoration: InputDecoration(hintText: 'Set current account balance'))],
-                  ),
-                  onCancel: () {});
+                title: 'Account Balance',
+                middleText: 'Set or modify current account balance',
+                content: Column(
+                  children: [
+                    TextField(
+                        decoration: InputDecoration(hintText: 'Set current account balance'),
+                        controller: _navBarController.accountBalanceEditor)
+                  ],
+                ),
+                onConfirm: () async {
+                  CreateNewDbController _cont = Get.find<CreateNewDbController>();
+                  String _accountBalance = _navBarController.accountBalanceEditor.text;
+                  AccountBalance _acctB = AccountBalance();
+                  _acctB.accountBalance = double.parse(_accountBalance);
+                  DBHelper _dbHelper = DBHelper();
+                  Map<String, dynamic> testmap = _acctB.toMap();
+                  print('THIS IS THE ACCTB $testmap');
+                  try {
+                    print('${_cont.activeDB.isOpen}');
+                  } catch (e, st) {
+                    print('ERROR $e');
+                  }
+                  await _dbHelper.insert(_acctB);
+                },
+                onCancel: () {},
+              );
             },
             child: Icon(Icons.edit_outlined, color: Colors.black),
           )
