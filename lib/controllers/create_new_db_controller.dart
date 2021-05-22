@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:sqflite_sqlcipher/sqflite.dart';
 
 class CreateNewDbController extends GetxController {
   @override
@@ -12,6 +14,7 @@ class CreateNewDbController extends GetxController {
     super.onInit();
   }
 
+  Rx<Database> _activeDB = Rx<Database>(null);
   var _listOfAvailDB = <FileSystemEntity>[].obs;
   RxBool _passwordOneObscureSet = true.obs;
   RxBool _passwordTwoObscureSet = true.obs;
@@ -24,6 +27,7 @@ class CreateNewDbController extends GetxController {
   final TextEditingController passwordOneController = TextEditingController();
   final TextEditingController passwordTwoController = TextEditingController();
 
+  Database get activeDB => this.activeDB;
   String get dbNameError => this._dbNameErrorMsg.value;
   String get dbPasswordOneErrorMsg => this._dbPasswordOneErrorMsg.value;
   String get dbPasswordTwoErrorMsg => this._dbPasswordTwoErrorMsg.value;
@@ -33,6 +37,7 @@ class CreateNewDbController extends GetxController {
   //getter that contains list of available databases
   List<FileSystemEntity> get listOfAvailDb => this._listOfAvailDB;
 
+  set setActiveDB(value) => this._activeDB.value = value;
   set setPasswordOneObscure(value) => this._passwordOneObscureSet.value = value;
   set setPasswordTwoObscure(value) => this._passwordTwoObscureSet.value = value;
 

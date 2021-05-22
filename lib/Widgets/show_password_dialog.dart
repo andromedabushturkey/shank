@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:path/path.dart';
 import 'package:shank/controllers/create_new_db_controller.dart';
 import 'package:shank/utils/db_helper.dart';
 
@@ -10,7 +13,12 @@ Future<void> showPasswordDialog(int index) async {
     title: 'Database Password',
     confirm: TextButton(
       onPressed: () {
-        DBHelper.openDB(_controller.listOfAvailDb[index]);
+        FileSystemEntity _fileSysEntity = _controller.listOfAvailDb[index];
+        String _filePath = _fileSysEntity.path;
+        String _fileName = basename(_filePath);
+        print(_fileName);
+
+        DBHelper.openDB(_fileName);
       },
       child: Text('Ok'),
     ),

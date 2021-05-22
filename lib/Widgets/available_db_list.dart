@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart';
+import 'package:shank/Widgets/show_password_dialog.dart';
 import 'package:shank/controllers/create_new_db_controller.dart';
 
 import 'db_info_bottomsheet_widget.dart';
@@ -26,9 +27,9 @@ class AvailableDbList extends StatelessWidget {
               String _databaseName = basename(_createNewDbController.listOfAvailDb[index].path);
               return ListTile(
                 onTap: () async {
-                  // await showPasswordDialog(index);
+                  Get.toNamed('/homePage');
+                  await showPasswordDialog(index);
                   //DBHelper.openDB(_dbList[index]);
-                  print('DBINFO ${_createNewDbController.listOfAvailDb[index]}');
                 },
                 title: Text(_databaseName),
                 leading: Column(

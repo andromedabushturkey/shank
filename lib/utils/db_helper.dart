@@ -33,6 +33,7 @@ class DBHelper {
               '''CREATE TABLE ${_tableName + 'Credit'}(id INTEGER PRIMARY KEY, Date INT, Description TEXT, Deposit NUM, Withdrawl NUM, Notes TEXT, Balance NUM )''');
           db.execute(
               '''CREATE TABLE ${_tableName + 'Recurring'}(id INTEGER PRIMARY KEY, Date INT, Description TEXT, Deposit NUM, Withdrawl NUM, Notes TEXT )''');
+          db.execute('''CREATE TABLE ${_tableName + 'Balance'}(id INTEGER PRIMARY KEY, Balance NUM )''');
         },
       );
       _controller.getExistingDB();
@@ -55,6 +56,7 @@ class DBHelper {
     print('password: $_password');
 
     if (_activeDB != null) {
+      print('this is null');
       return;
     }
 
@@ -62,15 +64,9 @@ class DBHelper {
       print('openDB');
       _activeDB = await openDatabase(_path, password: _password, version: 1);
       print('dbopen: ${_activeDB.isOpen}');
-      //     _controller.setActiveDatabase = _activeDB;
+      _controller.setActiveDB = _activeDB;
       var _tableName = dbName.replaceAll('.db', '');
       print('tableName: $_tableName');
-
-      var myValue = {'title': 'my made up title'};
-      _activeDB.insert(_tableName, myValue);
-      // _controller.database.insert(_tableName, myValue);
-
-      // _activeDB.insert(_tableName, myValue);
     } catch (e) {
       print(e);
     }

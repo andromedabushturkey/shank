@@ -32,6 +32,8 @@ dependencies:
   path: ^1.8.0
   path_provider: ^2.0.1
   sqflite_sqlcipher: ^2.0.0
+  ant_icons: ^1.0.0
+  flutter_speed_dial: ^3.0.5
 
 dev_dependencies:
   flutter_test:
