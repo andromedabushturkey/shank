@@ -13,7 +13,10 @@ class DBHelper {
     CreateNewDbController _controller = Get.find<CreateNewDbController>();
 
     //get and create path for db
-    String _path = await getDatabasesPath() + '/' + _controller.databaseNameController.text + '.db';
+    String _path = await getDatabasesPath() +
+        '/' +
+        _controller.databaseNameController.text +
+        '.db';
 
     //get access to user password
     String _password = _controller.passwordOneController.text;
@@ -34,7 +37,8 @@ class DBHelper {
               '''CREATE TABLE ${_tableName + 'Credit'}(id INTEGER PRIMARY KEY, Date INT, Description TEXT, Deposit NUM, Withdrawl NUM, Notes TEXT, Balance NUM )''');
           db.execute(
               '''CREATE TABLE ${_tableName + 'Recurring'}(id INTEGER PRIMARY KEY, Date INT, Description TEXT, Deposit NUM, Withdrawl NUM, Notes TEXT )''');
-          db.execute('''CREATE TABLE ${_tableName + 'Balance'}(id INTEGER PRIMARY KEY, Balance NUM )''');
+          db.execute(
+              '''CREATE TABLE ${_tableName + 'Balance'}(id INTEGER PRIMARY KEY, Balance NUM )''');
         },
       );
       _controller.getExistingDB();
@@ -51,20 +55,14 @@ class DBHelper {
 
     //get and create path for db
     String _path = await getDatabasesPath() + '/' + dbName;
-    print('path: $_path');
 
     //get access to user password
     String _password = _controller.passwordOneController.text;
-    print('password: $_password');
-
-    if (_controller.activeDB != null) {
-      print('this is null');
-      return;
-    }
 
     try {
       print('openDB');
-      _controller.setActiveDB = await openDatabase(_path, password: _password, version: 1);
+      _controller.setActiveDB =
+          await openDatabase(_path, password: _password, version: 1);
       print('dbopen: ${_controller.activeDB.isOpen}');
       //_controller.setActiveDB = _activeDB;
       var _tableName = dbName.replaceAll('.db', '');
@@ -77,7 +75,9 @@ class DBHelper {
   Future<int> insert(AccountBalance acctB) async {
     var _dbController = Get.find<CreateNewDbController>();
     var _tableN = _dbController.databaseNameController.text + 'Balance';
-    var result = await _dbController.activeDB.insert('hdbBalance', acctB.toMap());
+    print('TABLEN: $_tableN');
+    var result =
+        await _dbController.activeDB.insert('aabbBalance', acctB.toMap());
     print('THIS IS THE TEST MAP: $result');
     return result;
   }

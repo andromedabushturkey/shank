@@ -16,7 +16,6 @@ Future<void> showPasswordDialog(int index) async {
         FileSystemEntity _fileSysEntity = _controller.listOfAvailDb[index];
         String _filePath = _fileSysEntity.path;
         String _fileName = basename(_filePath);
-        print('PASSWORD OPEN: $_fileName');
 
         await DBHelper.openDB(_fileName);
         Get.back();

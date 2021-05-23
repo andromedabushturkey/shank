@@ -11,7 +11,7 @@ class AccountBalance {
 
   Map<String, dynamic> toMap() {
     Map map = Map<String, dynamic>();
-    map['accountBalance'] = _accountBalance;
+    map['Balance'] = _accountBalance;
     return map;
   }
 }
