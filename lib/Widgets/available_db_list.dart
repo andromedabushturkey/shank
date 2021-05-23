@@ -24,10 +24,11 @@ class AvailableDbList extends StatelessWidget {
             scrollDirection: Axis.vertical,
             itemCount: _createNewDbController.listOfAvailDb.length,
             itemBuilder: (BuildContext context, int index) {
-              String _databaseName = basename(_createNewDbController.listOfAvailDb[index].path);
+              String _databaseName =
+                  basename(_createNewDbController.listOfAvailDb[index].path);
               return ListTile(
                 onTap: () async {
-                  Get.toNamed('/homePage');
+                  Get.offAndToNamed('/homePage');
                   await showPasswordDialog(index);
                   //DBHelper.openDB(_dbList[index]);
                 },
@@ -57,7 +58,8 @@ class AvailableDbList extends StatelessWidget {
                       child: Icon(Icons.delete_outline),
                       onTap: () async {
                         print('delete');
-                        await _createNewDbController.removeDbFromFileSystem(index);
+                        await _createNewDbController
+                            .removeDbFromFileSystem(index);
                         _createNewDbController.removeDbOfAvailDB = index;
                       },
                     )

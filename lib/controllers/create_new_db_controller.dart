@@ -15,14 +15,13 @@ class CreateNewDbController extends GetxController {
   }
 
   Database _activeDB;
-  //Rx<Database> _activeDB = Rx<Database>(null);
   var _listOfAvailDB = <FileSystemEntity>[].obs;
   RxBool _passwordOneObscureSet = true.obs;
   RxBool _passwordTwoObscureSet = true.obs;
   RxString _dbNameErrorMsg = RxString(null);
   RxString _dbPasswordOneErrorMsg = RxString(null);
   RxString _dbPasswordTwoErrorMsg = RxString(null);
-
+  var _tableName = ''.obs;
   //TextEditingControllers for creating databasedf
   final TextEditingController databaseNameController = TextEditingController();
   final TextEditingController passwordOneController = TextEditingController();
@@ -34,6 +33,7 @@ class CreateNewDbController extends GetxController {
   String get dbPasswordTwoErrorMsg => this._dbPasswordTwoErrorMsg.value;
   bool get passwordOneObscureSet => this._passwordOneObscureSet.value;
   bool get passwordTwoObscureSet => this._passwordTwoObscureSet.value;
+  String get tableName => this._tableName.value;
 
   //getter that contains list of available databases
   List<FileSystemEntity> get listOfAvailDb => this._listOfAvailDB;
@@ -44,11 +44,15 @@ class CreateNewDbController extends GetxController {
 
   set setDbNameError(value) => this._dbNameErrorMsg.value = value;
 
-  set setDbPasswordOneErrorMsg(value) => this._dbPasswordOneErrorMsg.value = value;
+  set setDbPasswordOneErrorMsg(value) =>
+      this._dbPasswordOneErrorMsg.value = value;
 
-  set setDbpasswordTwoErrorMsg(value) => this._dbPasswordTwoErrorMsg.value = value;
+  set setDbpasswordTwoErrorMsg(value) =>
+      this._dbPasswordTwoErrorMsg.value = value;
   set setListOfAvailDB(value) => this._listOfAvailDB.add(value);
   set removeDbOfAvailDB(value) => this._listOfAvailDB.removeAt(value);
+
+  set tableName(value) => this._tableName.value = value;
 
   //Validate the DB creation form to make sure the info provided is complete
   bool validateNewDatabaseForm() {

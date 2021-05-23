@@ -63,21 +63,17 @@ class DBHelper {
       print('openDB');
       _controller.setActiveDB =
           await openDatabase(_path, password: _password, version: 1);
-      print('dbopen: ${_controller.activeDB.isOpen}');
-      //_controller.setActiveDB = _activeDB;
       var _tableName = dbName.replaceAll('.db', '');
-      print('tableName: $_tableName');
+      _controller.tableName = _tableName;
     } catch (e) {
       print(e);
     }
   }
 
-  Future<int> insert(AccountBalance acctB) async {
+  Future<int> insertBalance(AccountBalance acctB) async {
     var _dbController = Get.find<CreateNewDbController>();
-    var _tableN = _dbController.databaseNameController.text + 'Balance';
-    print('TABLEN: $_tableN');
-    var result =
-        await _dbController.activeDB.insert('aabbBalance', acctB.toMap());
+    var _tableN = _dbController.tableName + 'Balance';
+    var result = await _dbController.activeDB.insert('$_tableN', acctB.toMap());
     print('THIS IS THE TEST MAP: $result');
     return result;
   }
