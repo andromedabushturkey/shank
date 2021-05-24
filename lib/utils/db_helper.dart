@@ -32,13 +32,13 @@ class DBHelper {
         password: _password,
         onCreate: (db, version) {
           db.execute(
-              '''CREATE TABLE ${_tableName + 'Daily'}(id INTEGER PRIMARY KEY, Date INT, Description TEXT, Deposit NUM, Withdrawl NUM, Notes TEXT )''');
+              '''CREATE TABLE ${_tableName + 'Daily'}(id INTEGER PRIMARY KEY, Date REAL, Description TEXT, Deposit REAL, Withdrawl REAL, Notes TEXT )''');
           db.execute(
-              '''CREATE TABLE ${_tableName + 'Credit'}(id INTEGER PRIMARY KEY, Date INT, Description TEXT, Deposit NUM, Withdrawl NUM, Notes TEXT, Balance NUM )''');
+              '''CREATE TABLE ${_tableName + 'Credit'}(id INTEGER PRIMARY KEY, Date INT, Description TEXT, Deposit REAL, Withdrawl REAL, Notes TEXT, Balance REAL )''');
           db.execute(
-              '''CREATE TABLE ${_tableName + 'Recurring'}(id INTEGER PRIMARY KEY, Date INT, Description TEXT, Deposit NUM, Withdrawl NUM, Notes TEXT )''');
+              '''CREATE TABLE ${_tableName + 'Recurring'}(id INTEGER PRIMARY KEY, Date INT, Description TEXT, Deposit REAL, Withdrawl REAL, Notes TEXT )''');
           db.execute(
-              '''CREATE TABLE ${_tableName + 'Balance'}(id INTEGER PRIMARY KEY, Balance NUM )''');
+              '''CREATE TABLE ${_tableName + 'Balance'}(id INTEGER PRIMARY KEY, Balance REAL )''');
         },
       );
       _controller.getExistingDB();
@@ -73,7 +73,12 @@ class DBHelper {
   Future<int> insertBalance(AccountBalance acctB) async {
     var _dbController = Get.find<CreateNewDbController>();
     var _tableN = _dbController.tableName + 'Balance';
-    var result = await _dbController.activeDB.insert('$_tableN', acctB.toMap());
+    var result = await _dbController.activeDB.update(
+      _tableN,
+      acctB.toMap(),
+      where: 'id = 1',
+    );
+    // var result = await _dbController.activeDB.insert('$_tableN', acctB.toMap());
     print('THIS IS THE TEST MAP: $result');
     return result;
   }

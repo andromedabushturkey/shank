@@ -34,6 +34,7 @@ dependencies:
   sqflite_sqlcipher: ^2.0.0
   ant_icons: ^1.0.0
   flutter_speed_dial: ^3.0.5
+  string_validator: ^0.3.0
 
 dev_dependencies:
   flutter_test:
