@@ -46,12 +46,15 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
                 onConfirm: () async {
-                  String _newAccountBalance =
-                      _accountBalanceController.accountBalanceEditor.text;
-                  if (isNumeric(_newAccountBalance) &&
-                      isFloat(_newAccountBalance)) {
+                  if (_accountBalanceController.accountBalanceEditor.text
+                              .trim() !=
+                          "" &&
+                      isFloat(_accountBalanceController
+                          .accountBalanceEditor.text
+                          .trim())) {
                     double newAccountBalance = _accountBalanceController
-                        .newBalanceToDouble(_newAccountBalance);
+                        .newBalanceToDouble(_accountBalanceController
+                            .accountBalanceEditor.text);
                     AccountBalance _acctB = AccountBalance();
                     DBHelper _dbHelper = DBHelper();
                     _acctB.accountBalance = newAccountBalance;
