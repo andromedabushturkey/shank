@@ -27,10 +27,16 @@ class AccountBalanceController extends GetxController {
     String _tableName = _dbController.tableName + 'Balance';
     Database _db = _dbController.activeDB;
     var testGet = await _db.query(_tableName, where: 'id =1');
-    var myvalue = testGet[0]['Balance'];
-    accountBalance = myvalue.toString();
 
-    // _db.update(_tableName, values)
+    var myvalue = testGet[0]['Balance'];
+    if (myvalue == null) {
+      accountBalance = '0';
+      return;
+    } else {
+      accountBalance = myvalue.toString();
+
+      // _db.update(_tableName, values)
+    }
   }
 
   double newBalanceToDouble(String newBalanceValue) {

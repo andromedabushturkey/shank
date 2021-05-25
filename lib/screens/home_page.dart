@@ -2,6 +2,7 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:validators/validators.dart';
 
 import '../Widgets/credit_finance_widget.dart';
 import '../Widgets/daily_finance_widget.dart';
@@ -11,7 +12,6 @@ import '../controllers/account_balance_controller.dart';
 import '../controllers/bottom_nav_bar_controller.dart';
 import '../models/account_balance.dart';
 import '../utils/db_helper.dart';
-import 'package:validators/validators.dart';
 
 class HomePage extends StatelessWidget {
   final BottomNavBarController _navBarController =
