@@ -2,16 +2,16 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shank/controllers/account_balance_controller.dart';
-import 'package:string_validator/string_validator.dart';
 
 import '../Widgets/credit_finance_widget.dart';
 import '../Widgets/daily_finance_widget.dart';
 import '../Widgets/floating_action_button_widget.dart';
 import '../Widgets/recurring_finance_widget.dart';
+import '../controllers/account_balance_controller.dart';
 import '../controllers/bottom_nav_bar_controller.dart';
 import '../models/account_balance.dart';
 import '../utils/db_helper.dart';
+import 'package:validators/validators.dart';
 
 class HomePage extends StatelessWidget {
   final BottomNavBarController _navBarController =
@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
                   String _newAccountBalance =
                       _accountBalanceController.accountBalanceEditor.text;
                   if (isNumeric(_newAccountBalance) &&
-                      _newAccountBalance.isNotEmpty) {
+                      isFloat(_newAccountBalance)) {
                     double newAccountBalance = _accountBalanceController
                         .newBalanceToDouble(_newAccountBalance);
                     AccountBalance _acctB = AccountBalance();
@@ -78,11 +78,11 @@ class HomePage extends StatelessWidget {
         leadingWidth: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
-        title: Text(
-          'Account Balance: \$ ${_accountBalanceController.accountBalance}',
-          textAlign: TextAlign.left,
-          style: GoogleFonts.inconsolata(color: Colors.black),
-        ),
+        title: Obx(() => Text(
+              'Account Balance: \$ ${_accountBalanceController.accountBalance}',
+              textAlign: TextAlign.left,
+              style: GoogleFonts.inconsolata(color: Colors.black),
+            )),
       ),
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(

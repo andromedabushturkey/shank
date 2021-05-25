@@ -28,8 +28,8 @@ class AvailableDbList extends StatelessWidget {
                   basename(_createNewDbController.listOfAvailDb[index].path);
               return ListTile(
                 onTap: () async {
-                  Get.offAndToNamed('/homePage');
                   await showPasswordDialog(index);
+                  Get.offAndToNamed('/homePage');
                   //DBHelper.openDB(_dbList[index]);
                 },
                 title: Text(_databaseName),

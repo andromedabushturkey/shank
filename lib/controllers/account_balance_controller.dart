@@ -1,33 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shank/controllers/create_new_db_controller.dart';
-import 'package:shank/screens/create_database.dart';
+import 'package:shank/models/account_balance.dart';
 import 'package:sqflite_sqlcipher/sqflite.dart';
+
+import 'create_new_db_controller.dart';
 
 class AccountBalanceController extends GetxController {
   CreateNewDbController _dbController =
       Get.put<CreateNewDbController>(CreateNewDbController());
 
+  @override
+  void onReady() async {
+    await getBalance();
+    super.onReady();
+  }
+
   final TextEditingController accountBalanceEditor = TextEditingController();
 
-  var _accountBalance = 0.obs;
+  var _accountBalance = '0'.obs;
 
-  get accountBalance => () async {
-        var testBalance = await getBalance();
-        print('TESTBALA: $testBalance');
-      };
+  get accountBalance => this._accountBalance;
 
-  Future<double> getBalance() async {
+  set accountBalance(value) => this._accountBalance.value = value;
+
+  Future getBalance() async {
     String _tableName = _dbController.tableName + 'Balance';
     Database _db = _dbController.activeDB;
     var testGet = await _db.query(_tableName, where: 'id =1');
     var myvalue = testGet[0]['Balance'];
-    return myvalue;
+    accountBalance = myvalue.toString();
 
     // _db.update(_tableName, values)
   }
 
   double newBalanceToDouble(String newBalanceValue) {
-    return double.parse(newBalanceValue);
+    double myNewBalance = double.parse(newBalanceValue);
+    accountBalance = myNewBalance.toString();
+    return myNewBalance;
   }
 }
