@@ -8,7 +8,10 @@ class DailyFinanceWidget extends StatelessWidget {
       Get.put<AccountBalanceController>(AccountBalanceController());
   @override
   Widget build(BuildContext context) {
-    return Container(child: Center(child: ElevatedButton(
+    return Container(
+        child: Center(
+            child: ElevatedButton(
+      child: Text('press me'),
       onPressed: () async {
         var tester = await acController.getBalance();
         print('tester: $tester');

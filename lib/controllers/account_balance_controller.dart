@@ -25,18 +25,14 @@ class AccountBalanceController extends GetxController {
 
   Future getBalance() async {
     String _tableName = _dbController.tableName + 'Balance';
-    Database _db = _dbController.activeDB;
-    var testGet = await _db.query(_tableName, where: 'id =1');
+    Database? _db = _dbController.activeDB;
+    List<Map<String, dynamic>>? testGet =
+        await _db?.query(_tableName, where: 'id =1');
+    String myvalue = testGet?[0]['Balance'];
 
-    var myvalue = testGet[0]['Balance'];
-    if (myvalue == null) {
-      accountBalance = '0';
-      return;
-    } else {
-      accountBalance = myvalue.toString();
+    accountBalance = myvalue.toString();
 
-      // _db.update(_tableName, values)
-    }
+    // _db.update(_tableName, values)
   }
 
   double newBalanceToDouble(String newBalanceValue) {

@@ -1,18 +1,19 @@
 class DailyModel {
-  int _id;
-  int _date;
-  String _description;
-  double _deposit;
-  double _withdrawl;
-  double _accountBalance;
-  String _notes;
+  int? _id;
+  late int _date;
+  late String _description;
+  late double _deposit;
+  late double _withdrawl;
+  late double _accountBalance;
+  late String _notes;
 
-  DailyModel([this._date, this._description, this._deposit, this._withdrawl, this._notes, this._accountBalance]);
+  DailyModel(this._date, this._description, this._deposit, this._withdrawl,
+      this._notes, this._accountBalance);
 
-  DailyModel.withId(
-      [this._id, this._date, this._description, this._deposit, this._withdrawl, this._notes, this._accountBalance]);
+  DailyModel.withId(this._id, this._date, this._description, this._deposit,
+      this._withdrawl, this._notes, this._accountBalance);
 
-  int get id => this._id;
+  int get id => this._id ?? 1;
 
   int get date => this._date;
 
@@ -52,7 +53,7 @@ class DailyModel {
 
   //convert Daily object to Map
   Map<String, dynamic> toMap() {
-    Map map = Map<String, dynamic>();
+    Map<String, dynamic> map = Map<String, dynamic>();
 
     if (_id != null) {
       map['id'] = _id;

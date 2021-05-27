@@ -6,7 +6,7 @@ class BottomNavBarController extends GetxController {
 
   RxnInt _selectedIndex = RxnInt(0);
 
-  int get selectedIndex => this._selectedIndex.value;
+  int get selectedIndex => this._selectedIndex.value ?? 0;
 
   set setSelectedIndex(index) => this._selectedIndex.value = index;
 }

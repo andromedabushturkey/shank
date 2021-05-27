@@ -55,7 +55,7 @@ class HomePage extends StatelessWidget {
                     double newAccountBalance = _accountBalanceController
                         .newBalanceToDouble(_accountBalanceController
                             .accountBalanceEditor.text);
-                    AccountBalance _acctB = AccountBalance();
+                    AccountBalance _acctB = AccountBalance(null);
                     DBHelper _dbHelper = DBHelper();
                     _acctB.accountBalance = newAccountBalance;
                     try {

@@ -14,20 +14,20 @@ class CreateNewDbController extends GetxController {
     super.onInit();
   }
 
-  Database _activeDB;
+  Database? _activeDB;
   var _listOfAvailDB = <FileSystemEntity>[].obs;
   RxBool _passwordOneObscureSet = true.obs;
   RxBool _passwordTwoObscureSet = true.obs;
-  RxString _dbNameErrorMsg = RxString(null);
-  RxString _dbPasswordOneErrorMsg = RxString(null);
-  RxString _dbPasswordTwoErrorMsg = RxString(null);
+  RxString _dbNameErrorMsg = RxString('');
+  RxString _dbPasswordOneErrorMsg = RxString('');
+  RxString _dbPasswordTwoErrorMsg = RxString('');
   var _tableName = ''.obs;
   //TextEditingControllers for creating databasedf
   final TextEditingController databaseNameController = TextEditingController();
   final TextEditingController passwordOneController = TextEditingController();
   final TextEditingController passwordTwoController = TextEditingController();
 
-  Database get activeDB => this._activeDB;
+  Database? get activeDB => this._activeDB;
   String get dbNameError => this._dbNameErrorMsg.value;
   String get dbPasswordOneErrorMsg => this._dbPasswordOneErrorMsg.value;
   String get dbPasswordTwoErrorMsg => this._dbPasswordTwoErrorMsg.value;
@@ -60,15 +60,15 @@ class CreateNewDbController extends GetxController {
       _dbNameErrorMsg.value = "Field can't be left empty";
       return false;
     } else {
-      _dbNameErrorMsg.value = null;
+      _dbNameErrorMsg.value = '';
     }
     if (passwordOneController.text != passwordTwoController.text) {
       _dbPasswordOneErrorMsg.value = 'Passwords do not match';
       _dbPasswordTwoErrorMsg.value = 'Passwords do not match';
       return false;
     } else {
-      _dbPasswordOneErrorMsg.value = null;
-      _dbPasswordTwoErrorMsg.value = null;
+      _dbPasswordOneErrorMsg.value = '';
+      _dbPasswordTwoErrorMsg.value = '';
     }
     return true;
   }

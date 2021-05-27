@@ -9,10 +9,10 @@ import 'db_info_bottomsheet_widget.dart';
 
 class AvailableDbList extends StatelessWidget {
   const AvailableDbList({
-    Key key,
-    @required CreateNewDbController createNewDbController,
+    // Key key,
+    required CreateNewDbController createNewDbController,
   })  : _createNewDbController = createNewDbController,
-        super(key: key);
+        super();
 
   final CreateNewDbController _createNewDbController;
 
