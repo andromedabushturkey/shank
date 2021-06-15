@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart';
-import 'package:shank/Widgets/show_password_dialog.dart';
-import 'package:shank/controllers/create_new_db_controller.dart';
+import 'package:shank/Widgets/db_info_bottomsheet_widget.dart';
 
-import 'db_info_bottomsheet_widget.dart';
+import '../controllers/create_new_db_controller.dart';
 
 class AvailableDbList extends StatelessWidget {
   const AvailableDbList({
@@ -19,55 +18,86 @@ class AvailableDbList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Obx(() => ListView.builder(
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            itemCount: _createNewDbController.listOfAvailDb.length,
-            itemBuilder: (BuildContext context, int index) {
-              String _databaseName =
-                  basename(_createNewDbController.listOfAvailDb[index].path);
-              return ListTile(
-                onTap: () async {
-                  await showPasswordDialog(index);
-                  Get.offAndToNamed('/homePage');
-                  //DBHelper.openDB(_dbList[index]);
-                },
-                title: Text(_databaseName),
-                leading: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      AntDesign.database,
-                      size: 20,
-                    ),
-                  ],
-                ),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    GestureDetector(
-                      child: Icon(Icons.info_outline),
-                      onTap: () {
-                        Get.bottomSheet(DbInfoBottomSheetWidget(index));
-                      },
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    GestureDetector(
-                      child: Icon(Icons.delete_outline),
-                      onTap: () async {
-                        print('delete');
-                        await _createNewDbController
-                            .removeDbFromFileSystem(index);
-                        _createNewDbController.removeDbOfAvailDB = index;
-                      },
-                    )
-                  ],
-                ),
-              );
-            },
-          )),
+      child: Obx(
+        () => ListView.builder(
+          shrinkWrap: true,
+          scrollDirection: Axis.vertical,
+          itemCount: _createNewDbController.listOfAvailDb.length,
+          itemBuilder: (BuildContext context, int index) {
+            String _databaseName =
+                basename(_createNewDbController.listOfAvailDb[index].path);
+            return ExpansionTile(
+              leading: Icon(AntDesign.database),
+              title: Text(_databaseName),
+              children: [
+                Container(
+                  margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButton(
+                          onPressed: () {}, child: Text('Open Database')),
+                      TextButton(
+                          onPressed: () async {
+                            await _createNewDbController
+                                .removeDbFromFileSystem(index);
+                            _createNewDbController.removeDbOfAvailDB = index;
+                          },
+                          child: Text('Delete Database')),
+                      TextButton(
+                          onPressed: () {
+                            Get.bottomSheet(DbInfoBottomSheetWidget(index));
+                          },
+                          child: Text('Database Info'))
+                    ],
+                  ),
+                )
+              ],
+            );
+          },
+        ),
+      ),
     );
   }
 }
+
+// ListTile(
+//               onTap: () async {
+//                 await showPasswordDialog(index);
+//                 Get.offAndToNamed('/homePage');
+//                 //DBHelper.openDB(_dbList[index]);
+//               },
+//               title: Text(_databaseName),
+//               leading: Column(
+//                 mainAxisAlignment: MainAxisAlignment.center,
+//                 children: [
+//                   Icon(
+//                     AntDesign.database,
+//                     size: 20,
+//                   ),
+//                 ],
+//               ),
+//               trailing: Row(
+//                 mainAxisSize: MainAxisSize.min,
+//                 children: [
+//                   GestureDetector(
+//                     child: Icon(Icons.info_outline),
+//                     onTap: () {
+//                       Get.bottomSheet(DbInfoBottomSheetWidget(index));
+//                     },
+//                   ),
+//                   SizedBox(
+//                     width: 20,
+//                   ),
+//                   GestureDetector(
+//                     child: Icon(Icons.delete_outline),
+//                     onTap: () async {
+//                       print('delete');
+//                       await _createNewDbController
+//                           .removeDbFromFileSystem(index);
+//                       _createNewDbController.removeDbOfAvailDB = index;
+//                     },
+//                   )
+//                 ],
+//               ),
+//             )
