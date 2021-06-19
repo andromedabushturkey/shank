@@ -51,39 +51,51 @@ Future<void> showPasswordDialog(int index) async {
         Form(
           key: _formKey,
           child: Container(
-            child: Column(
-              children: [
-                _buildDbPassword(),
-                SizedBox(
-                  height: 16,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TextButton(
-                      onPressed: () => Get.back(),
-                      child: Text('Cancel'),
-                    ),
-                    TextButton(
-                        onPressed: () async {
-                          _buildCircularProgressIndicator();
-                          FileSystemEntity _fileSysEntity =
-                              _controller.listOfAvailDb[index];
-                          String _filePath = _fileSysEntity.path;
-                          String _fileName = basename(_filePath);
-                          bool _openDatabase = await DBHelper.openDB(_fileName);
-                          print('DB OPEN Status: $_openDatabase');
+            child: Obx(
+              () => Column(
+                children: [
+                  _buildDbPassword(),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButton(
+                        onPressed: () => Get.back(),
+                        child: Text('Cancel'),
+                      ),
+                      TextButton(
+                          onPressed: () async {
+                            _buildCircularProgressIndicator();
+                            FileSystemEntity _fileSysEntity =
+                                _controller.listOfAvailDb[index];
+                            String _filePath = _fileSysEntity.path;
+                            String _fileName = basename(_filePath);
+                            bool _openDatabase =
+                                await DBHelper.openDB(_fileName);
+                            print('DB OPEN Status: ');
 
-                          if (_openDatabase) {
-                            Get.offAndToNamed('/homePage');
-                          } else {
-                            Get.back();
-                          }
-                        },
-                        child: Text('Open'))
-                  ],
-                )
-              ],
+                            if (_openDatabase) {
+                              Get.offAndToNamed('/homePage');
+                            } else {
+                              Get.back();
+                            }
+                          },
+                          child: Text('Open')),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  (_controller.openDBErrorMsg == null)
+                      ? Text('')
+                      : Text(
+                          _controller.openDBErrorMsg!,
+                          style: TextStyle(color: Colors.red),
+                        )
+                ],
+              ),
             ),
           ),
         )

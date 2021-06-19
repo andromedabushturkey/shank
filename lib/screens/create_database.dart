@@ -159,10 +159,4 @@ class CreateDatabase extends StatelessWidget {
       keyboardType: TextInputType.visiblePassword,
     );
   }
-
-  void _clearTextEditingControllers() {
-    _createDbController.databaseNameController.clear();
-    _createDbController.passwordOneController.clear();
-    _createDbController.passwordTwoController.clear();
-  }
 }

@@ -61,7 +61,7 @@ class HomePage extends StatelessWidget {
                     try {
                       await _dbHelper.insertBalance(_acctB);
                       Get.back();
-                    } catch (e, st) {
+                    } catch (e) {
                       Get.snackbar('Error',
                           'Unable to modify the account balance. Please try again');
                     }

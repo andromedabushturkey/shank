@@ -67,6 +67,7 @@ class DBHelper {
       var _tableName = dbName.replaceAll('.db', '');
       _controller.tableName = _tableName;
     } on DatabaseException {
+      _controller.setDBErrorMsg = 'Error opening database';
       print('asdf');
       return false;
     }

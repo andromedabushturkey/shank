@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shank/controllers/account_balance_controller.dart';
-import 'package:shank/models/account_balance.dart';
+
+import '../controllers/account_balance_controller.dart';
 
 class DailyFinanceWidget extends StatelessWidget {
-  var acController =
+  final acController =
       Get.put<AccountBalanceController>(AccountBalanceController());
   @override
   Widget build(BuildContext context) {

@@ -22,8 +22,12 @@ class CreateNewDbController extends GetxController {
   final TextEditingController passwordOneController = TextEditingController();
   final TextEditingController passwordTwoController = TextEditingController();
 
+  RxnString _openDBErrorMsg = RxnString();
+
   Database? get activeDB => this._activeDB;
   String get tableName => this._tableName.value;
+
+  String? get openDBErrorMsg => this._openDBErrorMsg.value;
 
   //getter that contains list of available databases
   List<FileSystemEntity> get listOfAvailDb => this._listOfAvailDB;
@@ -33,6 +37,8 @@ class CreateNewDbController extends GetxController {
   set removeDbOfAvailDB(value) => this._listOfAvailDB.removeAt(value);
 
   set tableName(value) => this._tableName.value = value;
+
+  set setDBErrorMsg(value) => this._openDBErrorMsg.value = value;
 
   //Validate the DB creation form to make sure the info provided is complete
 
