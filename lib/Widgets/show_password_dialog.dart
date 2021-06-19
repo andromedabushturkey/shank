@@ -8,43 +8,82 @@ import 'package:shank/utils/db_helper.dart';
 
 Future<void> showPasswordDialog(int index) async {
   CreateNewDbController _controller = Get.find<CreateNewDbController>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  Widget _buildDbPassword() {
+    return TextFormField(
+      controller: _controller.passwordOneController,
+      validator: (String? value) {
+        if (value != null) {
+          if (value.isEmpty) return "Password is required";
+        }
+      },
+    );
+  }
+
+  Future<dynamic> _buildCircularProgressIndicator() {
+    return Get.defaultDialog(
+        title: 'Opening Database',
+        barrierDismissible: false,
+        content: Container(
+          padding: EdgeInsets.only(left: 16, right: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [Text('Please wait....'), CircularProgressIndicator()],
+          ),
+        ));
+  }
+
+  Future<bool> _validateForm() async {
+    var _formValidate = _formKey.currentState?.validate();
+    if (_formValidate != null) {
+      if (!_formValidate) {
+        return false;
+      }
+    }
+    return true;
+  }
 
   await Get.defaultDialog(
-    title: 'Database Password',
-    confirm: TextButton(
-      onPressed: () async {
-        FileSystemEntity _fileSysEntity = _controller.listOfAvailDb[index];
-        String _filePath = _fileSysEntity.path;
-        String _fileName = basename(_filePath);
-
-        await DBHelper.openDB(_fileName);
-        Get.back();
-      },
-      child: Text('Ok'),
-    ),
-    cancel: TextButton(
-      onPressed: () {
-        Get.back();
-      },
-      child: Text('Cancel'),
-    ),
+    title: 'Enter Database Password',
     content: Column(
       children: [
-        TextField(
-          controller: _controller.passwordOneController,
-          obscureText: true,
-          decoration: InputDecoration(
-            hintText: 'Enter database password',
-            labelText: 'Database password',
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(12),
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(12),
-              ),
+        Form(
+          key: _formKey,
+          child: Container(
+            child: Column(
+              children: [
+                _buildDbPassword(),
+                SizedBox(
+                  height: 16,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(
+                      onPressed: () => Get.back(),
+                      child: Text('Cancel'),
+                    ),
+                    TextButton(
+                        onPressed: () async {
+                          _buildCircularProgressIndicator();
+                          FileSystemEntity _fileSysEntity =
+                              _controller.listOfAvailDb[index];
+                          String _filePath = _fileSysEntity.path;
+                          String _fileName = basename(_filePath);
+                          bool _openDatabase = await DBHelper.openDB(_fileName);
+                          print('DB OPEN Status: $_openDatabase');
+
+                          if (_openDatabase) {
+                            Get.offAndToNamed('/homePage');
+                          } else {
+                            Get.back();
+                          }
+                        },
+                        child: Text('Open'))
+                  ],
+                )
+              ],
             ),
           ),
         )

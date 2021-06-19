@@ -3,6 +3,7 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart';
 import 'package:shank/Widgets/db_info_bottomsheet_widget.dart';
+import 'package:shank/Widgets/show_password_dialog.dart';
 
 import '../controllers/create_new_db_controller.dart';
 
@@ -36,7 +37,10 @@ class AvailableDbList extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextButton(
-                          onPressed: () {}, child: Text('Open Database')),
+                          onPressed: () async {
+                            await showPasswordDialog(index);
+                          },
+                          child: Text('Open Database')),
                       TextButton(
                           onPressed: () async {
                             await _createNewDbController
@@ -60,44 +64,3 @@ class AvailableDbList extends StatelessWidget {
     );
   }
 }
-
-// ListTile(
-//               onTap: () async {
-//                 await showPasswordDialog(index);
-//                 Get.offAndToNamed('/homePage');
-//                 //DBHelper.openDB(_dbList[index]);
-//               },
-//               title: Text(_databaseName),
-//               leading: Column(
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 children: [
-//                   Icon(
-//                     AntDesign.database,
-//                     size: 20,
-//                   ),
-//                 ],
-//               ),
-//               trailing: Row(
-//                 mainAxisSize: MainAxisSize.min,
-//                 children: [
-//                   GestureDetector(
-//                     child: Icon(Icons.info_outline),
-//                     onTap: () {
-//                       Get.bottomSheet(DbInfoBottomSheetWidget(index));
-//                     },
-//                   ),
-//                   SizedBox(
-//                     width: 20,
-//                   ),
-//                   GestureDetector(
-//                     child: Icon(Icons.delete_outline),
-//                     onTap: () async {
-//                       print('delete');
-//                       await _createNewDbController
-//                           .removeDbFromFileSystem(index);
-//                       _createNewDbController.removeDbOfAvailDB = index;
-//                     },
-//                   )
-//                 ],
-//               ),
-//             )

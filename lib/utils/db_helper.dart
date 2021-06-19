@@ -49,7 +49,7 @@ class DBHelper {
     }
   }
 
-  static Future<void> openDB(String dbName) async {
+  static Future<bool> openDB(String dbName) async {
     print('databae name $dbName');
     CreateNewDbController _controller = Get.find<CreateNewDbController>();
 
@@ -58,6 +58,7 @@ class DBHelper {
 
     //get access to user password
     String _password = _controller.passwordOneController.text;
+    print('MYPASSWORd: $_password');
 
     try {
       print('openDB');
@@ -65,9 +66,11 @@ class DBHelper {
           await openDatabase(_path, password: _password, version: 1);
       var _tableName = dbName.replaceAll('.db', '');
       _controller.tableName = _tableName;
-    } catch (e) {
-      print(e);
+    } on DatabaseException {
+      print('asdf');
+      return false;
     }
+    return true;
   }
 
   Future<int> insertBalance(AccountBalance acctB) async {
