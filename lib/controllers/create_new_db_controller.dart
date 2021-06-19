@@ -18,9 +18,9 @@ class CreateNewDbController extends GetxController {
   var _listOfAvailDB = <FileSystemEntity>[].obs;
   RxBool _passwordOneObscureSet = true.obs;
   RxBool _passwordTwoObscureSet = true.obs;
-  RxString _dbNameErrorMsg = RxString('');
-  RxString _dbPasswordOneErrorMsg = RxString('');
-  RxString _dbPasswordTwoErrorMsg = RxString('');
+  RxnString _dbNameErrorMsg = RxnString();
+  RxnString _dbPasswordOneErrorMsg = RxnString();
+  RxnString _dbPasswordTwoErrorMsg = RxnString();
   var _tableName = ''.obs;
   //TextEditingControllers for creating databasedf
   final TextEditingController databaseNameController = TextEditingController();
@@ -28,9 +28,9 @@ class CreateNewDbController extends GetxController {
   final TextEditingController passwordTwoController = TextEditingController();
 
   Database? get activeDB => this._activeDB;
-  String get dbNameError => this._dbNameErrorMsg.value;
-  String get dbPasswordOneErrorMsg => this._dbPasswordOneErrorMsg.value;
-  String get dbPasswordTwoErrorMsg => this._dbPasswordTwoErrorMsg.value;
+  String? get dbNameError => this._dbNameErrorMsg.value;
+  String? get dbPasswordOneErrorMsg => this._dbPasswordOneErrorMsg.value;
+  String? get dbPasswordTwoErrorMsg => this._dbPasswordTwoErrorMsg.value;
   bool get passwordOneObscureSet => this._passwordOneObscureSet.value;
   bool get passwordTwoObscureSet => this._passwordTwoObscureSet.value;
   String get tableName => this._tableName.value;
@@ -59,9 +59,18 @@ class CreateNewDbController extends GetxController {
     if (databaseNameController.text.isEmpty) {
       _dbNameErrorMsg.value = "Field can't be left empty";
       return false;
-    } else {
-      _dbNameErrorMsg.value = '';
     }
+
+    if (passwordOneController.text.isEmpty) {
+      _dbPasswordOneErrorMsg.value = "Field can't be left empty";
+      return false;
+    }
+
+    if (passwordTwoController.text.isEmpty) {
+      _dbPasswordTwoErrorMsg.value = "Field can't be left empty";
+      return false;
+    }
+
     if (passwordOneController.text != passwordTwoController.text) {
       _dbPasswordOneErrorMsg.value = 'Passwords do not match';
       _dbPasswordTwoErrorMsg.value = 'Passwords do not match';
