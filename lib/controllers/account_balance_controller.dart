@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shank/models/account_balance.dart';
 import 'package:sqflite_sqlcipher/sqflite.dart';
 
 import 'create_new_db_controller.dart';
