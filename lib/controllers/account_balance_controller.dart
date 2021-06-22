@@ -15,7 +15,6 @@ class AccountBalanceController extends GetxController {
   }
 
   final TextEditingController accountBalanceEditor = TextEditingController();
-
   var _accountBalance = '0'.obs;
 
   get accountBalance => this._accountBalance;
@@ -23,13 +22,23 @@ class AccountBalanceController extends GetxController {
   set accountBalance(value) => this._accountBalance.value = value;
 
   Future getBalance() async {
+    var myvalue;
     String _tableName = _dbController.tableName + 'Balance';
     Database? _db = _dbController.activeDB;
+    if (_db == null) {
+      throw Exception();
+    } else {
+      _db = _dbController.activeDB;
+    }
     List<Map<String, dynamic>>? testGet =
         await _db?.query(_tableName, where: 'id =1');
-    String myvalue = testGet?[0]['Balance'];
+    if (testGet == null) {
+      myvalue = 0;
+    } else {
+      String myvalue = testGet[0]['Balance'];
 
-    accountBalance = myvalue.toString();
+      accountBalance = myvalue.toString();
+    }
 
     // _db.update(_tableName, values)
   }

@@ -12,6 +12,7 @@ Future<void> showPasswordDialog(int index) async {
 
   Widget _buildDbPassword() {
     return TextFormField(
+      decoration: InputDecoration(labelText: 'Enter Database Password'),
       controller: _controller.passwordOneController,
       validator: (String? value) {
         if (value != null) {
