@@ -2,6 +2,9 @@ import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:money2/money2.dart';
+import 'package:shank/controllers/homepage_controller.dart';
+import 'package:shank/utils/money_encoder.dart';
 import 'package:validators/validators.dart';
 
 import '../Widgets/credit_finance_widget.dart';
@@ -19,6 +22,9 @@ class HomePage extends StatelessWidget {
 
   final AccountBalanceController _accountBalanceController =
       Get.put<AccountBalanceController>(AccountBalanceController());
+
+  final HomepageController _homepageController =
+      Get.put<HomepageController>(HomepageController());
 
   final _selectedNavBarItem = [
     DailyFinanceWidget(),
@@ -58,6 +64,12 @@ class HomePage extends StatelessWidget {
                     AccountBalance _acctB = AccountBalance(null);
                     DBHelper _dbHelper = DBHelper();
                     _acctB.accountBalance = newAccountBalance;
+                    var _currencies = Currencies.parse(r"$CAD" +
+                        _accountBalanceController.accountBalanceEditor.text);
+                    MoneyData _testMoney = MoneyData.from(
+                        _currencies.minorUnits, _currencies.currency);
+                    var _encoded = MoneyToIntEncoder().encode(_testMoney);
+
                     try {
                       await _dbHelper.insertBalance(_acctB);
                       Get.back();
