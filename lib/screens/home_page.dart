@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:money2/money2.dart';
-import 'package:shank/controllers/homepage_controller.dart';
-import 'package:shank/utils/money_encoder.dart';
 import 'package:validators/validators.dart';
 
 import '../Widgets/credit_finance_widget.dart';
@@ -15,6 +13,7 @@ import '../controllers/account_balance_controller.dart';
 import '../controllers/bottom_nav_bar_controller.dart';
 import '../models/account_balance.dart';
 import '../utils/db_helper.dart';
+import '../utils/money_encoder.dart';
 
 class HomePage extends StatelessWidget {
   final BottomNavBarController _navBarController =
@@ -22,9 +21,6 @@ class HomePage extends StatelessWidget {
 
   final AccountBalanceController _accountBalanceController =
       Get.put<AccountBalanceController>(AccountBalanceController());
-
-  final HomepageController _homepageController =
-      Get.put<HomepageController>(HomepageController());
 
   final _selectedNavBarItem = [
     DailyFinanceWidget(),
@@ -52,6 +48,8 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
                 onConfirm: () async {
+                  var _currency = Currency.create("CAD", 2);
+                  Currencies.register(_currency);
                   if (_accountBalanceController.accountBalanceEditor.text
                               .trim() !=
                           "" &&
@@ -64,7 +62,7 @@ class HomePage extends StatelessWidget {
                     AccountBalance _acctB = AccountBalance(null);
                     DBHelper _dbHelper = DBHelper();
                     _acctB.accountBalance = newAccountBalance;
-                    var _currencies = Currencies.parse(r"$CAD" +
+                    var _currencies = Currencies.parse("\$" +
                         _accountBalanceController.accountBalanceEditor.text);
                     MoneyData _testMoney = MoneyData.from(
                         _currencies.minorUnits, _currencies.currency);
@@ -86,7 +84,14 @@ class HomePage extends StatelessWidget {
                 onCancel: () {},
               );
             },
-            child: Icon(Icons.edit_outlined, color: Colors.black),
+            child: Container(
+              padding: EdgeInsets.only(right: 40),
+              child: Icon(
+                Icons.edit_outlined,
+                color: Colors.black,
+                size: 18,
+              ),
+            ),
           )
         ],
         centerTitle: false,
