@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:money2/money2.dart';
+import 'package:shank/Widgets/set_account_balance_dialog.dart';
 import 'package:validators/validators.dart';
 
 import '../Widgets/credit_finance_widget.dart';
@@ -34,55 +35,8 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         actions: [
           GestureDetector(
-            onTap: () {
-              Get.defaultDialog(
-                title: 'Account Balance',
-                middleText: 'Set or modify current account balance',
-                content: Column(
-                  children: [
-                    TextField(
-                        decoration: InputDecoration(
-                            hintText: 'Set current account balance'),
-                        controller:
-                            _accountBalanceController.accountBalanceEditor)
-                  ],
-                ),
-                onConfirm: () async {
-                  var _currency = Currency.create("CAD", 2);
-                  Currencies.register(_currency);
-                  if (_accountBalanceController.accountBalanceEditor.text
-                              .trim() !=
-                          "" &&
-                      isFloat(_accountBalanceController
-                          .accountBalanceEditor.text
-                          .trim())) {
-                    double newAccountBalance = _accountBalanceController
-                        .newBalanceToDouble(_accountBalanceController
-                            .accountBalanceEditor.text);
-                    AccountBalance _acctB = AccountBalance(null);
-                    DBHelper _dbHelper = DBHelper();
-                    _acctB.accountBalance = newAccountBalance;
-                    var _currencies = Currencies.parse("\$" +
-                        _accountBalanceController.accountBalanceEditor.text);
-                    MoneyData _testMoney = MoneyData.from(
-                        _currencies.minorUnits, _currencies.currency);
-                    var _encoded = MoneyToIntEncoder().encode(_testMoney);
-
-                    try {
-                      await _dbHelper.insertBalance(_acctB);
-                      Get.back();
-                    } catch (e) {
-                      Get.snackbar('Error',
-                          'Unable to modify the account balance. Please try again');
-                    }
-                  } else {
-                    Get.back();
-                    Get.snackbar('Error', 'Only numeric values are allowed');
-                    _accountBalanceController.accountBalanceEditor.clear();
-                  }
-                },
-                onCancel: () {},
-              );
+            onTap: () async {
+              await showSetAccountBalance();
             },
             child: Container(
               padding: EdgeInsets.only(right: 40),

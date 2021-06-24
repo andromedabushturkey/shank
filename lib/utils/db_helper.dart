@@ -32,13 +32,13 @@ class DBHelper {
         password: _password,
         onCreate: (db, version) {
           db.execute(
-              '''CREATE TABLE ${_tableName + 'Daily'}(id INTEGER PRIMARY KEY, Date REAL, Description TEXT, Deposit INTEGER, Withdrawl INTEGER, Notes TEXT )''');
+              '''CREATE TABLE ${_tableName + 'Daily'}(id INTEGER PRIMARY KEY, Date TEXT, Description TEXT, Deposit TEXT, Withdrawl TEXT, Notes TEXT )''');
           db.execute(
-              '''CREATE TABLE ${_tableName + 'Credit'}(id INTEGER PRIMARY KEY, Date INT, Description TEXT, Deposit INTEGER, Withdrawl INTEGER, Notes TEXT, Balance INTEGER )''');
+              '''CREATE TABLE ${_tableName + 'Credit'}(id INTEGER PRIMARY KEY, Date TEXT, Description TEXT, Deposit TEXT, Withdrawl TEXT, Notes TEXT )''');
           db.execute(
-              '''CREATE TABLE ${_tableName + 'Recurring'}(id INTEGER PRIMARY KEY, Date INT, Description TEXT, Deposit INTEGER, Withdrawl INTEGER, Notes TEXT )''');
+              '''CREATE TABLE ${_tableName + 'Recurring'}(id INTEGER PRIMARY KEY, Date TEXT, Description TEXT, Deposit TEXT, Withdrawl TEXT, Notes TEXT )''');
           db.execute(
-              '''CREATE TABLE ${_tableName + 'Balance'}(id INTEGER PRIMARY KEY, Balance INTEGER )''');
+              '''CREATE TABLE ${_tableName + 'Balance'}(id INTEGER PRIMARY KEY, Balance TEXT )''');
         },
       );
       _controller.getExistingDB();

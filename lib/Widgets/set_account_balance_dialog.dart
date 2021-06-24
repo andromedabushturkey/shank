@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 Future<void> showSetAccountBalance() async {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  Widget _buildDbPassword() {
+  Widget _buildSetAccount() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Set Account Balance'),
       validator: (String? value) {
@@ -17,7 +17,7 @@ Future<void> showSetAccountBalance() async {
 
   await Get.defaultDialog(
     barrierDismissible: false,
-    title: 'Set Account Balance',
+    title: 'Set Account111 Balance',
     content: Card(
       color: Colors.green[50],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -28,29 +28,32 @@ Future<void> showSetAccountBalance() async {
             Form(
               key: _formKey,
               child: Container(
-                child: Obx(
-                  () => Column(
-                    children: [
-                      _buildDbPassword(),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          TextButton(
-                            onPressed: () => Get.back(),
-                            child: Text('Cancel'),
-                          ),
-                          TextButton(
-                              onPressed: () async {}, child: Text('Open')),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                    ],
-                  ),
+                child: Column(
+                  children: [
+                    _buildSetAccount(),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(
+                          onPressed: () => Get.back(),
+                          child: Text('Cancel'),
+                        ),
+                        TextButton(
+                            onPressed: () async {
+                              if (_formKey.currentState != null) {
+                                _formKey.currentState!.validate();
+                              }
+                            },
+                            child: Text('Set')),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                  ],
                 ),
               ),
             )
