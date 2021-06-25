@@ -99,7 +99,7 @@ class CreateDatabase extends StatelessWidget {
         padding: EdgeInsets.only(left: 16, right: 16),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text('Opening Database'), CircularProgressIndicator()],
+          children: [Text('Creating Database'), CircularProgressIndicator()],
         ),
       ),
     );

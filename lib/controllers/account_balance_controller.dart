@@ -21,31 +21,23 @@ class AccountBalanceController extends GetxController {
 
   set accountBalance(value) => this._accountBalance.value = value;
 
+  //Get and insert current balance in titlebar
   Future getBalance() async {
-    var myvalue;
     String _tableName = _dbController.tableName + 'Balance';
     Database? _db = _dbController.activeDB;
     if (_db == null) {
       throw Exception();
     } else {
       _db = _dbController.activeDB;
+      List<Map<String, dynamic>>? _getBalance =
+          await _db!.query(_tableName, where: 'id =1');
+      if (_getBalance == null) {
+        accountBalance = 12;
+      } else {
+        String _initialAccountBalance = _getBalance[0]['Balance'];
+
+        accountBalance = _initialAccountBalance.toString();
+      }
     }
-    List<Map<String, dynamic>>? testGet =
-        await _db?.query(_tableName, where: 'id =1');
-    if (testGet == null) {
-      myvalue = 0;
-    } else {
-      String myvalue = testGet[0]['Balance'];
-
-      accountBalance = myvalue.toString();
-    }
-
-    // _db.update(_tableName, values)
-  }
-
-  double newBalanceToDouble(String newBalanceValue) {
-    double myNewBalance = double.parse(newBalanceValue);
-    accountBalance = myNewBalance.toString();
-    return myNewBalance;
   }
 }

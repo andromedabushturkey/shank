@@ -17,7 +17,7 @@ Future<void> showSetAccountBalance() async {
 
   await Get.defaultDialog(
     barrierDismissible: false,
-    title: 'Set Account111 Balance',
+    title: 'Set Account Balance',
     content: Card(
       color: Colors.green[50],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
