@@ -42,7 +42,8 @@ class DBHelper {
         },
       );
       _controller.getExistingDB();
-      await _controller.activeDB?.close();
+      await _controller.activeDB.close();
+
       // await _activeDB.close();
     } catch (e) {
       Get.snackbar('Error', 'Unable to create database');
@@ -77,7 +78,7 @@ class DBHelper {
   Future<int> insertBalance(AccountBalance acctB) async {
     var _dbController = Get.find<CreateNewDbController>();
     var _tableN = _dbController.tableName + 'Balance';
-    var result = await _dbController.activeDB?.update(
+    var result = await _dbController.activeDB.update(
       _tableN,
       acctB.toMap(),
       where: 'id = 1',

@@ -24,20 +24,11 @@ class AccountBalanceController extends GetxController {
   //Get and insert current balance in titlebar
   Future getBalance() async {
     String _tableName = _dbController.tableName + 'Balance';
-    Database? _db = _dbController.activeDB;
-    if (_db == null) {
-      throw Exception();
-    } else {
-      _db = _dbController.activeDB;
-      List<Map<String, dynamic>>? _getBalance =
-          await _db!.query(_tableName, where: 'id =1');
-      if (_getBalance == null) {
-        accountBalance = 12;
-      } else {
-        String _initialAccountBalance = _getBalance[0]['Balance'];
+    Database _db = _dbController.activeDB;
 
-        accountBalance = _initialAccountBalance.toString();
-      }
-    }
+    List<Map<String, dynamic>> _getBalance =
+        await _db.query(_tableName, where: 'id =1');
+
+    String _initialAccountBalance = _getBalance[0]['Balance'];
   }
 }

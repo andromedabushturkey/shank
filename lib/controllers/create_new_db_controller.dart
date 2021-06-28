@@ -14,7 +14,7 @@ class CreateNewDbController extends GetxController {
     super.onInit();
   }
 
-  Database? _activeDB;
+  late Database _activeDB;
   var _listOfAvailDB = <FileSystemEntity>[].obs;
   var _tableName = ''.obs;
   //TextEditingControllers for creating databasedf
@@ -24,7 +24,7 @@ class CreateNewDbController extends GetxController {
 
   RxnString _openDBErrorMsg = RxnString();
 
-  Database? get activeDB => this._activeDB;
+  Database get activeDB => this._activeDB;
   String get tableName => this._tableName.value;
 
   String? get openDBErrorMsg => this._openDBErrorMsg.value;

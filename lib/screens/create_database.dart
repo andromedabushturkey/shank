@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:shank/utils/db_helper_single.dart';
 
 import '../controllers/create_new_db_controller.dart';
 import '../utils/db_helper.dart';
@@ -23,59 +24,88 @@ class CreateDatabase extends StatelessWidget {
         ),
         elevation: 0,
       ),
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: Text(
-              'Enter Database Information',
-              style: TextStyle(fontSize: 18),
-            ),
-          ),
-          Card(
-            color: Colors.green[50],
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            margin: EdgeInsets.all(30),
-            elevation: 0,
-            child: Container(
-              padding: EdgeInsets.all(30),
-              child: Form(
-                key: _formKey,
+      body: SingleChildScrollView(
+        child: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Card(
+              color: Colors.green[50],
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              margin: EdgeInsets.all(20),
+              elevation: 0,
+              child: Container(
+                padding: EdgeInsets.all(30),
                 child: Column(
                   children: [
-                    _buildDatabaseName(),
-                    _buildPassword(),
-                    _buildConfirmPassword(),
-                    SizedBox(
-                      height: 16,
+                    Text(
+                      'SHANK',
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextButton(
-                            onPressed: () {
-                              Get.back();
-                            },
-                            child: Text('Cancel')),
-                        TextButton(
-                            onPressed: () async {
-                              bool isFormValid = await _validateForm();
-                              if (!isFormValid) return;
-                              _saveAndOpenDB();
-                            },
-                            child: Text('Confirm'))
-                      ],
-                    )
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      'Fill out the form below to get started.',
+                      textAlign: TextAlign.left,
+                    ),
+                    Text('This will create the encrypted database.')
                   ],
                 ),
               ),
             ),
-          )
-        ],
-      )),
+            Text(
+              'Enter Database Information',
+              style: TextStyle(fontSize: 18),
+            ),
+            Card(
+              color: Colors.green[50],
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              margin: EdgeInsets.all(30),
+              elevation: 0,
+              child: Container(
+                padding: EdgeInsets.all(30),
+                child: Form(
+                  key: _formKey,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        _buildDatabaseName(),
+                        _buildPassword(),
+                        _buildConfirmPassword(),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton(
+                                onPressed: () {
+                                  Get.back();
+                                },
+                                child: Text('Cancel')),
+                            TextButton(
+                                onPressed: () async {
+                                  bool isFormValid = await _validateForm();
+                                  if (!isFormValid) return;
+                                  _saveAndOpenDB();
+                                },
+                                child: Text('Confirm'))
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            )
+          ],
+        )),
+      ),
     );
   }
 
@@ -91,7 +121,7 @@ class CreateDatabase extends StatelessWidget {
 
   Future<void> _saveAndOpenDB() async {
     _formKey.currentState?.save();
-
+    print('OPENING DB');
     Get.defaultDialog(
       title: 'Please wait',
       barrierDismissible: false,
@@ -105,7 +135,9 @@ class CreateDatabase extends StatelessWidget {
     );
 
     //open DB
-    await DBHelper.initDB();
+    // await DBHelper.initDB();
+    await DBHelperSingle.instance.database;
+
     Get.offAndToNamed('/');
   }
 
