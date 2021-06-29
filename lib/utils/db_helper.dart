@@ -14,7 +14,7 @@ class DBHelper {
 
     //get and create path for db
     String _path = await getDatabasesPath() +
-        '/' +
+        '/database/' +
         _controller.databaseNameController.text +
         '.db';
 

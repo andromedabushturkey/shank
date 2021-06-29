@@ -27,9 +27,10 @@ class DBHelperSingle {
 
   _initiateDatabase() async {
     Directory directory = await getApplicationDocumentsDirectory();
+    String _dbDirectory = directory.path + '/database';
 
     String path =
-        join(directory.path, _databaseController.databaseNameController.text);
+        join(_dbDirectory, _databaseController.databaseNameController.text);
     print('PATH: $path');
 
     await openDatabase(path + '.db', version: 1, onCreate: _onCreate);
@@ -51,5 +52,6 @@ class DBHelperSingle {
     } catch (e) {
       print('ERROR OPENING DB $e');
     }
+    _databaseController.getExistingDB();
   }
 }
