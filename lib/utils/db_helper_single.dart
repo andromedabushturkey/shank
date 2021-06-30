@@ -18,22 +18,30 @@ class DBHelperSingle {
   Future<Database?> get database async {
     if (_database != null) {
       print('DB IS NOT NULL');
+      _databaseController.setActiveDB = database;
       return database;
     }
     print('INIT DB');
     _database = await _initiateDatabase();
+    if (_database != null) {
+      _databaseController.setActiveDB = _database;
+    } else {
+      return null;
+    }
     return _database;
   }
 
   _initiateDatabase() async {
-    Directory directory = await getApplicationDocumentsDirectory();
-    String _dbDirectory = directory.path + '/database';
+    String directory = await getDatabasesPath();
+    String _dbDirectory = directory + '/database';
+    String _password = _databaseController.passwordOneController.text;
 
     String path =
         join(_dbDirectory, _databaseController.databaseNameController.text);
     print('PATH: $path');
 
-    await openDatabase(path + '.db', version: 1, onCreate: _onCreate);
+    await openDatabase(path + '.db',
+        version: 1, password: _password, onCreate: _onCreate);
   }
 
   Future _onCreate(Database db, int ver) async {
@@ -52,6 +60,7 @@ class DBHelperSingle {
     } catch (e) {
       print('ERROR OPENING DB $e');
     }
+
     _databaseController.getExistingDB();
   }
 }

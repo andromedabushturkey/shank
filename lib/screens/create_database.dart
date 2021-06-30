@@ -138,7 +138,7 @@ class CreateDatabase extends StatelessWidget {
     // await DBHelper.initDB();
     await DBHelperSingle.instance.database;
 
-    Get.offAndToNamed('/');
+    Get.offAndToNamed('/homePage');
   }
 
   Widget _buildDatabaseName() {

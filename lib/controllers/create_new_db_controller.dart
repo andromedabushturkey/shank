@@ -43,10 +43,11 @@ class CreateNewDbController extends GetxController {
   //Validate the DB creation form to make sure the info provided is complete
 
   void getExistingDB() async {
-    Directory _dir =
-        Directory("/data/user/0/com.example.shank/app_flutter/database");
+    String _dbDirectory = await getDatabasesPath() + '/database';
+    Directory _dir = Directory(_dbDirectory);
     if (await _dir.exists()) {
       var _dirContent = _dir.listSync();
+
       print('ITS THERE: $_dirContent');
       _listOfAvailDB.value = _dirContent;
     } else {
