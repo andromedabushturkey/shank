@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shank/utils/db_helper_single.dart';
 import 'package:sqflite_sqlcipher/sqflite.dart';
 
 import 'create_new_db_controller.dart';
@@ -24,11 +25,12 @@ class AccountBalanceController extends GetxController {
   //Get and insert current balance in titlebar
   Future getBalance() async {
     String _tableName = _dbController.tableName + 'Balance';
-    Database _db = _dbController.activeDB;
+    var _db = await DBHelperSingle.instance.database;
 
-    List<Map<String, dynamic>> _getBalance =
-        await _db.query(_tableName, where: 'id =1');
-
-    String _initialAccountBalance = _getBalance[0]['Balance'];
+    if (_db != null) {
+      List<Map<String, dynamic>> _getBalance =
+          await _db.query(_tableName, where: 'id =1');
+      String _initialAccountBalance = _getBalance[0]['Balance'];
+    }
   }
 }
