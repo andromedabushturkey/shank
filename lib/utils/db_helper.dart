@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:shank/models/account_balance.dart';
 import 'package:sqflite_sqlcipher/sqflite.dart';
 
 import '../controllers/create_new_db_controller.dart';
@@ -75,19 +74,19 @@ class DBHelper {
     return true;
   }
 
-  Future<int> insertBalance(AccountBalance acctB) async {
-    var _dbController = Get.find<CreateNewDbController>();
-    var _tableN = _dbController.tableName + 'Balance';
-    var result = await _dbController.activeDB.update(
-      _tableN,
-      acctB.toMap(),
-      where: 'id = 1',
-    );
-    // var result = await _dbController.activeDB.insert('$_tableN', acctB.toMap());
-    if (result != null) {
-      return result;
-    } else {
-      throw Exception();
-    }
-  }
+  // Future<int> insertBalance(AccountBalance acctB) async {
+  //   var _dbController = Get.find<CreateNewDbController>();
+  //   var _tableN = _dbController.tableName + 'Balance';
+  //   var result = await _dbController.activeDB.update(
+  //     _tableN,
+  //     acctB.toMap(),
+  //     where: 'id = 1',
+  //   );
+  //   // var result = await _dbController.activeDB.insert('$_tableN', acctB.toMap());
+  //   if (result != null) {
+  //     return result;
+  //   } else {
+  //     throw Exception();
+  //   }
+  // }
 }

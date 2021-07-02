@@ -35,16 +35,6 @@ Future<void> showPasswordDialog(int index) async {
         ));
   }
 
-  Future<bool> _validateForm() async {
-    var _formValidate = _formKey.currentState?.validate();
-    if (_formValidate != null) {
-      if (!_formValidate) {
-        return false;
-      }
-    }
-    return true;
-  }
-
   await Get.defaultDialog(
     barrierDismissible: false,
     title: 'Database Password',

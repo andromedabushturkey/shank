@@ -1,19 +1,17 @@
-import 'package:flutter/foundation.dart';
-
 class AccountBalance {
-  double? _accountBalance;
+  // String _accountBalance;
 
-  AccountBalance(this._accountBalance);
+  // AccountBalance(this._accountBalance);
 
-  double get accountBalance => this._accountBalance ?? 0.0;
+  // String get accountBalance => this._accountBalance;
 
-  set accountBalance(double newAccountBalance) {
-    this._accountBalance = newAccountBalance;
-  }
+  // set accountBalance(String newAccountBalance) {
+  //   this._accountBalance = newAccountBalance;
+  // }
 
-  Map<String, dynamic> toMap() {
+  static Map<String, dynamic> toMap(String accountbalance) {
     Map<String, dynamic> map = Map<String, dynamic>();
-    map['Balance'] = _accountBalance;
+    map['Balance'] = accountbalance;
     return map;
   }
 }

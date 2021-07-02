@@ -1,13 +1,12 @@
-import 'dart:io';
-
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:path/path.dart';
-import 'package:shank/controllers/create_new_db_controller.dart';
 import 'package:sqflite_sqlcipher/sqflite.dart';
+
+import '../controllers/create_new_db_controller.dart';
 
 class DBHelperSingle {
   DBHelperSingle._privateContructor();
+
   final CreateNewDbController _databaseController =
       Get.find<CreateNewDbController>();
 
@@ -15,32 +14,21 @@ class DBHelperSingle {
 
   static Database? _database;
 
-  Future<Database?> get database async {
-    if (_database != null) {
-      print('DB IS NOT NULL');
-      _databaseController.setActiveDB = database;
-      return database;
-    }
-    print('INIT DB');
-    _database = await _initiateDatabase();
-    if (_database != null) {
-      _databaseController.setActiveDB = _database;
-    } else {
-      return null;
-    }
-    return _database;
-  }
+  Future<Database> get database async =>
+      _database ??= await _initiateDatabase();
 
-  _initiateDatabase() async {
-    String directory = await getDatabasesPath();
-    String _dbDirectory = directory + '/database';
+  Future<Database> _initiateDatabase() async {
+    final _box = GetStorage();
+
+    String _directory = await getDatabasesPath();
+
     String _password = _databaseController.passwordOneController.text;
 
-    String path =
-        join(_dbDirectory, _databaseController.databaseNameController.text);
-    print('PATH: $path');
+    String _databaseName = _box.read('databaseName');
 
-    await openDatabase(path + '.db',
+    String _dbPath = _directory + '/' + _databaseName + '.db';
+
+    return await openDatabase(_dbPath,
         version: 1, password: _password, onCreate: _onCreate);
   }
 

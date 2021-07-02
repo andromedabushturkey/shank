@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+
+import '../controllers/account_balance_controller.dart';
+import '../models/account_balance.dart';
+import '../utils/db_helper_single.dart';
 
 Future<void> showSetAccountBalance() async {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  AccountBalanceController _accountBalanceController =
+      Get.find<AccountBalanceController>();
+
   Widget _buildSetAccount() {
     return TextFormField(
+      controller: _accountBalanceController.accountBalanceEditor,
       decoration: InputDecoration(labelText: 'Set Account Balance'),
       validator: (String? value) {
         if (value != null) {
@@ -43,8 +52,23 @@ Future<void> showSetAccountBalance() async {
                         ),
                         TextButton(
                             onPressed: () async {
+                              final _box = GetStorage();
+                              String _databaseName = _box.read('databaseName');
                               if (_formKey.currentState != null) {
                                 _formKey.currentState!.validate();
+                                var _accountBalanceMap = AccountBalance.toMap(
+                                    _accountBalanceController
+                                        .accountBalanceEditor.text);
+
+                                var _db =
+                                    await DBHelperSingle.instance.database;
+                                String _tableName = _databaseName + 'Balance';
+                                var _balanceinput = await _db.insert(
+                                    _tableName, _accountBalanceMap);
+
+                                print('BALANCE INPUT: $_balanceinput');
+                                await _accountBalanceController.getBalance();
+                                Get.back();
                               }
                             },
                             child: Text('Set')),

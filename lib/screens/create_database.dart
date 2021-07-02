@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:shank/utils/db_helper_single.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../controllers/create_new_db_controller.dart';
-import '../utils/db_helper.dart';
+import '../utils/db_helper_single.dart';
 
 class CreateDatabase extends StatelessWidget {
   final CreateNewDbController _createDbController =
       Get.put<CreateNewDbController>(CreateNewDbController());
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  final _box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -133,6 +136,8 @@ class CreateDatabase extends StatelessWidget {
         ),
       ),
     );
+
+    _box.write('databaseName', _createDbController.databaseNameController.text);
 
     //open DB
     // await DBHelper.initDB();
