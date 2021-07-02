@@ -10,13 +10,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      onReady: () async {
-        await _checkAppConfig()
-            ? Get.toNamed('/introPage')
-            : Get.toNamed('/startPage');
-      },
       initialBinding: InitialBindings(),
-      initialRoute: '/',
+      initialRoute: getInitialRoute(),
       getPages: AppRoutes.route,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -25,14 +20,14 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  Future<bool> _checkAppConfig() async {
-    var _storageBox = GetStorage();
-    var _getConfig = _storageBox.read('config');
-    print('CONFIG: $_getConfig');
+  String getInitialRoute() {
+    var _box = GetStorage();
+    String? _initialRoute = _box.read('config');
 
-    if (_getConfig == null) {
-      return false;
+    if (_initialRoute == null) {
+      return '/startPage';
+    } else {
+      return '/introPage';
     }
-    return true;
   }
 }

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:sqflite_sqlcipher/sqflite.dart';
 
@@ -43,7 +44,7 @@ class CreateNewDbController extends GetxController {
   //Validate the DB creation form to make sure the info provided is complete
 
   void getExistingDB() async {
-    String _dbDirectory = await getDatabasesPath() + '/database';
+    String _dbDirectory = await getDatabasesPath() + '/databases';
     Directory _dir = Directory(_dbDirectory);
     if (await _dir.exists()) {
       var _dirContent = _dir.listSync();
@@ -55,16 +56,27 @@ class CreateNewDbController extends GetxController {
     }
   }
 
-  Digest getDBDigest(int index) {
-    var _bytes = utf8.encode(_listOfAvailDB[index].path);
+  Future<String> dbFullPath() async {
+    var _box = GetStorage();
+
+    String _dbName = _box.read('databaseName');
+    String _dbStorage = await getDatabasesPath();
+    return _dbStorage + _dbName + '.db';
+  }
+
+  Future<Digest> getDBDigest(int index) async {
+    String _db = await dbFullPath();
+    var _bytes = utf8.encode(_db);
     return md5.convert(_bytes);
   }
 
-  String getDBLastModDdate(int index) {
-    var _fileStats = _listOfAvailDB[index].statSync();
-    DateTime _date = _fileStats.modified;
-    return DateFormat.yMEd().add_jms().format(_date);
-  }
+  // Future<String> getDBLastModDdate(int index) async {
+  //   String _db = await dbFullPath();
+
+  //   var _fileStats = _listOfAvailDB[index].statSync();
+  //   DateTime _date = _fileStats.modified;
+  //   return DateFormat.yMEd().add_jms().format(_date);
+  // }
 
   Future removeDbFromFileSystem(int index) async {
     print('INDEX: $index');

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:path/path.dart';
 import 'package:shank/controllers/create_new_db_controller.dart';
 
 class DbInfoBottomSheetWidget extends StatelessWidget {
@@ -9,6 +10,7 @@ class DbInfoBottomSheetWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('BOTTOM INDEX: $index');
     return Container(
       height: 140,
       decoration: BoxDecoration(
@@ -24,13 +26,26 @@ class DbInfoBottomSheetWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text('Database Hash:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          Text('${_controller.getDBDigest(index)}', style: TextStyle(fontSize: 16)),
           SizedBox(height: 10),
-          Text('Last Modified:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          Text('${_controller.getDBLastModDdate(index)}', style: TextStyle(fontSize: 16))
+          Text('Last Modified:',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          // Text('${_controller.getDBLastModDdate(index)}',
+          //     style: TextStyle(fontSize: 16))
         ],
       ),
     );
   }
+
+  Future getDigest() async {
+    var dd = await _controller.getDBDigest(index);
+    return dd;
+  }
 }
+
+
+
+
+// Text('Database Hash:',
+//               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+//           Text('${_controller.getDBDigest(index)}',
+//               style: TextStyle(fontSize: 16)),
