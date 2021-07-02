@@ -138,6 +138,7 @@ class CreateDatabase extends StatelessWidget {
     );
 
     _box.write('databaseName', _createDbController.databaseNameController.text);
+    await _box.write('config', 'configed');
 
     //open DB
     // await DBHelper.initDB();

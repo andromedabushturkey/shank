@@ -6,6 +6,7 @@ import 'package:shank/screens/start_page.dart';
 
 class AppRoutes {
   static final route = [
+    GetPage(name: '/introPage', page: () => IntroPage()),
     GetPage(name: '/startPage', page: () => StartPage()),
     GetPage(name: '/createDatabase', page: () => CreateDatabase()),
     GetPage(name: '/homePage', page: () => HomePage()),

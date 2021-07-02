@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
   Future<bool> _checkAppConfig() async {
     var _storageBox = GetStorage();
     var _getConfig = _storageBox.read('config');
+    print('CONFIG: $_getConfig');
 
     if (_getConfig == null) {
       return false;
