@@ -19,30 +19,44 @@ class FloatingActionButtonWidet extends StatelessWidget {
       onClose: () => print('close dial'),
       tooltip: 'Speed Dial',
       heroTag: 'speed-dial-tag',
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.green[50],
       foregroundColor: Colors.black,
       elevation: 0,
       shape: CircleBorder(),
       children: [
         SpeedDialChild(
-          child: Icon(AntIcons.dollar),
-          backgroundColor: Colors.white,
+          child: Icon(
+            AntIcons.dollar,
+            color: Colors.black,
+          ),
+          backgroundColor: Colors.green[50],
           label: 'Daily Expense',
+          labelBackgroundColor: Colors.green[50],
           labelStyle: TextStyle(fontSize: 18),
           onTap: () => print('test1'),
         ),
         SpeedDialChild(
-          child: Icon(AntIcons.retweet_outline),
-          backgroundColor: Colors.white,
+          child: Icon(
+            AntIcons.retweet_outline,
+            color: Colors.black,
+          ),
+          labelBackgroundColor: Colors.green[50],
+          backgroundColor: Colors.green[50],
           label: 'Recurring Expense',
           labelStyle: TextStyle(fontSize: 18),
           onTap: () => print('second child'),
         ),
         SpeedDialChild(
-            child: Icon(AntIcons.credit_card_outline),
-            backgroundColor: Colors.white,
+            child: Icon(
+              AntIcons.credit_card_outline,
+              color: Colors.black,
+            ),
+            backgroundColor: Colors.green[50],
+            labelBackgroundColor: Colors.green[50],
             label: 'Credit Expense',
-            labelStyle: TextStyle(fontSize: 18),
+            labelStyle: TextStyle(
+              fontSize: 18,
+            ),
             onTap: () {
               print('credit test');
             })

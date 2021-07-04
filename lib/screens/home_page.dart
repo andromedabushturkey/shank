@@ -34,11 +34,14 @@ class HomePage extends StatelessWidget {
               await showSetAccountBalance();
             },
             child: Container(
-              padding: EdgeInsets.only(right: 40),
-              child: Icon(
-                Icons.edit_outlined,
-                color: Colors.black,
-                size: 18,
+              padding: EdgeInsets.only(right: 20),
+              child: CircleAvatar(
+                backgroundColor: Colors.green[50],
+                child: Icon(
+                  Icons.edit_outlined,
+                  color: Colors.black,
+                  size: 18,
+                ),
               ),
             ),
           )
