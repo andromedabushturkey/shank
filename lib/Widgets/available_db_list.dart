@@ -50,7 +50,7 @@ class AvailableDbList extends StatelessWidget {
                         },
                         child: Text('Delete Database')),
                     TextButton(
-                        onPressed: () {
+                        onPressed: () async {
                           Get.bottomSheet(DbInfoBottomSheetWidget(index));
                         },
                         child: Text('Database Info'))

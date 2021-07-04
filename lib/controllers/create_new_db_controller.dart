@@ -5,7 +5,6 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:intl/intl.dart';
 import 'package:sqflite_sqlcipher/sqflite.dart';
 
 class CreateNewDbController extends GetxController {
@@ -61,11 +60,12 @@ class CreateNewDbController extends GetxController {
 
     String _dbName = _box.read('databaseName');
     String _dbStorage = await getDatabasesPath();
-    return _dbStorage + _dbName + '.db';
+    return _dbStorage + '/' + _dbName + '.db';
   }
 
-  Future<Digest> getDBDigest(int index) async {
+  Future<Digest> getDBDigest() async {
     String _db = await dbFullPath();
+    print('FULL PATH: $_db');
     var _bytes = utf8.encode(_db);
     return md5.convert(_bytes);
   }

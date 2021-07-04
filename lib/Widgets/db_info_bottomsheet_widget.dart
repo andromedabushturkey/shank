@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:path/path.dart';
-import 'package:shank/controllers/create_new_db_controller.dart';
+import 'package:crypto/crypto.dart';
+
+import '../controllers/create_new_db_controller.dart';
 
 class DbInfoBottomSheetWidget extends StatelessWidget {
   final int index;
@@ -26,6 +27,22 @@ class DbInfoBottomSheetWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          Text('Database Hash:',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          FutureBuilder(
+              future: getDigest(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Text(
+                    snapshot.data.toString(),
+                    style: TextStyle(fontSize: 16),
+                  );
+                }
+                return Text(
+                  'Error!! Could not calculate hash for database.',
+                  style: TextStyle(fontSize: 16),
+                );
+              }),
           SizedBox(height: 10),
           Text('Last Modified:',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
@@ -36,16 +53,18 @@ class DbInfoBottomSheetWidget extends StatelessWidget {
     );
   }
 
-  Future getDigest() async {
-    var dd = await _controller.getDBDigest(index);
-    return dd;
+  Future<Digest> getDigest() async {
+    var _digest = await _controller.getDBDigest();
+    return _digest;
   }
 }
-
-
-
 
 // Text('Database Hash:',
 //               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
 //           Text('${_controller.getDBDigest(index)}',
 //               style: TextStyle(fontSize: 16)),
+
+
+
+
+
