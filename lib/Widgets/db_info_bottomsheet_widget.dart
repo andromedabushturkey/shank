@@ -46,8 +46,18 @@ class DbInfoBottomSheetWidget extends StatelessWidget {
           SizedBox(height: 10),
           Text('Last Modified:',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          // Text('${_controller.getDBLastModDdate(index)}',
-          //     style: TextStyle(fontSize: 16))
+          FutureBuilder(
+              future: _controller.getDBLastModDdate(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Text(
+                    snapshot.data.toString(),
+                    style: TextStyle(fontSize: 16),
+                  );
+                } else {
+                  return Text('Error!! Could not get data to verify database.');
+                }
+              })
         ],
       ),
     );
