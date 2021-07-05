@@ -45,7 +45,6 @@ class CreateNewDbController extends GetxController {
 
   void getExistingDB() async {
     String _dbDirectory = await getDatabasesPath();
-    print('mypath: $_dbDirectory');
     Directory _dir = Directory(_dbDirectory);
     if (await _dir.exists()) {
       var _dirContent = _dir.listSync();
@@ -80,13 +79,22 @@ class CreateNewDbController extends GetxController {
     return DateFormat.yMEd().add_jms().format(_date);
   }
 
-  Future removeDbFromFileSystem(int index) async {
-    print('INDEX: $index');
-    print('file for deletion ${listOfAvailDb[index]}');
+  Future removeDbFromFileSystem() async {
+    print('file for deletion ${listOfAvailDb[0]}');
     try {
-      _listOfAvailDB[index].deleteSync();
+      _listOfAvailDB[0].deleteSync();
     } catch (e) {
       print('DELETE ERROR: $e');
+    }
+  }
+
+  String getDatabaseName() {
+    var _box = GetStorage();
+    String? _databaseName = _box.read('databaseName');
+    if (_databaseName != null) {
+      return _box.read('databaseName');
+    } else {
+      return '';
     }
   }
 }

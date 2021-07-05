@@ -63,12 +63,22 @@ Future<void> showSetAccountBalance() async {
                                 var _db =
                                     await DBHelperSingle.instance.database;
                                 String _tableName = _databaseName + 'Balance';
-                                var _balanceinput = await _db.insert(
-                                    _tableName, _accountBalanceMap);
 
-                                print('BALANCE INPUT: $_balanceinput');
-                                await _accountBalanceController.getBalance();
-                                Get.back();
+                                var _checkFirstDeposit =
+                                    await _db.query(_tableName);
+                                if (_checkFirstDeposit[0]['id'] == null) {
+                                  print(
+                                      'THIS IS THE TABLE: $_checkFirstDeposit');
+                                  var _balanceinput = await _db.insert(
+                                      _tableName, _accountBalanceMap);
+
+                                  print('BALANCE INPUT: $_balanceinput');
+                                  await _accountBalanceController.getBalance();
+                                  Get.back();
+                                } else {
+                                  _db.update(_tableName, _accountBalanceMap);
+                                  Get.back();
+                                }
                               }
                             },
                             child: Text('Set')),

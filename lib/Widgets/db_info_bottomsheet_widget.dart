@@ -24,41 +24,44 @@ class DbInfoBottomSheetWidget extends StatelessWidget {
       ),
       margin: EdgeInsets.only(left: 10, right: 10),
       padding: EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text('Database Hash:',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          FutureBuilder(
-              future: getDigest(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text('Database Hash:',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            FutureBuilder(
+                future: getDigest(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Text(
+                      snapshot.data.toString(),
+                      style: TextStyle(fontSize: 16),
+                    );
+                  }
                   return Text(
-                    snapshot.data.toString(),
+                    'Error!! Could not calculate hash for database.',
                     style: TextStyle(fontSize: 16),
                   );
-                }
-                return Text(
-                  'Error!! Could not calculate hash for database.',
-                  style: TextStyle(fontSize: 16),
-                );
-              }),
-          SizedBox(height: 10),
-          Text('Last Modified:',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          FutureBuilder(
-              future: _controller.getDBLastModDdate(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Text(
-                    snapshot.data.toString(),
-                    style: TextStyle(fontSize: 16),
-                  );
-                } else {
-                  return Text('Error!! Could not get data to verify database.');
-                }
-              })
-        ],
+                }),
+            SizedBox(height: 10),
+            Text('Last Modified:',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            FutureBuilder(
+                future: _controller.getDBLastModDdate(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Text(
+                      snapshot.data.toString(),
+                      style: TextStyle(fontSize: 16),
+                    );
+                  } else {
+                    return Text(
+                        'Error!! Could not get data to verify database.');
+                  }
+                })
+          ],
+        ),
       ),
     );
   }
