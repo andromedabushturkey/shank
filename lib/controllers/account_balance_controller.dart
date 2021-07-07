@@ -32,7 +32,7 @@ class AccountBalanceController extends GetxController {
     if (_getBalance.length > 0) {
       String _initialAccountBalance = _getBalance[0]['Balance'];
       _accountBalance.value = _initialAccountBalance;
-      print('real value: ${_accountBalance.value}');
+
       update();
     }
   }
