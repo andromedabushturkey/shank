@@ -51,7 +51,7 @@ class HomePage extends StatelessWidget {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         title: Obx(() => Text(
-              'Account Balance: \$ ${_accountBalanceController.accountBalance}',
+              'Account Balance:  ${_accountBalanceController.accountBalance}',
               textAlign: TextAlign.left,
               style: GoogleFonts.inconsolata(color: Colors.black),
             )),

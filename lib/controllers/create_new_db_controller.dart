@@ -72,8 +72,6 @@ class CreateNewDbController extends GetxController {
   }
 
   Future<String> getDBLastModDdate() async {
-    String _db = await dbFullPath();
-
     var _fileStats = _listOfAvailDB[0].statSync();
     DateTime _date = _fileStats.modified;
     return DateFormat.yMEd().add_jms().format(_date);

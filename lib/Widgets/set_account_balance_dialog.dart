@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:money2/money2.dart';
 
 import '../controllers/account_balance_controller.dart';
 import '../models/account_balance.dart';
@@ -14,6 +15,7 @@ Future<void> showSetAccountBalance() async {
 
   Widget _buildSetAccount() {
     return TextFormField(
+      keyboardType: TextInputType.number,
       controller: _accountBalanceController.accountBalanceEditor,
       decoration: InputDecoration(labelText: 'Set Account Balance'),
       validator: (String? value) {
@@ -69,18 +71,15 @@ Future<void> showSetAccountBalance() async {
                                     columns: ['Balance'],
                                     where: 'id=?',
                                     whereArgs: [1]);
-                                print('MYFIRST QURARY: $_checkFirstDeposit');
                                 if (_checkFirstDeposit.length == 0) {
-                                  print(
-                                      'THIS IS THE TABLE: $_checkFirstDeposit');
-                                  var _balanceinput = await _db.insert(
+                                  await _db.insert(
                                       _tableName, _accountBalanceMap);
 
-                                  print('BALANCE INPUT: $_balanceinput');
                                   await _accountBalanceController.getBalance();
+                                  _accountBalanceController.accountBalanceEditor
+                                      .clear();
                                   Get.back();
                                 } else {
-                                  print('update time:');
                                   _db.update(_tableName, _accountBalanceMap,
                                       where: 'id = ?', whereArgs: [1]);
                                   _accountBalanceController.getBalance();
