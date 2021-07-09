@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:shank/Widgets/daily_widgets/daily_expense_detail_widget.dart';
 import 'package:shank/screens/create_database.dart';
 import 'package:shank/screens/home_page.dart';
 import 'package:shank/screens/intro_page.dart';
@@ -6,6 +7,9 @@ import 'package:shank/screens/start_page.dart';
 
 class AppRoutes {
   static final route = [
+    GetPage(
+        name: '/dailyExpenseDetailWidget',
+        page: () => DailyExpenseDetailWidget()),
     GetPage(name: '/introPage', page: () => IntroPage()),
     GetPage(name: '/startPage', page: () => StartPage()),
     GetPage(name: '/createDatabase', page: () => CreateDatabase()),

@@ -38,6 +38,7 @@ dependencies:
   sqflite_sqlcipher: ^2.0.0
   validators: ^3.0.0
   flutter_masked_text2: ^0.9.1
+  date_time_picker: ^2.1.0
 
 dev_dependencies:
   flutter_test:

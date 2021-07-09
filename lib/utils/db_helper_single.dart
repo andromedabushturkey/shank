@@ -38,7 +38,7 @@ class DBHelperSingle {
 
     try {
       db.execute(
-          '''CREATE TABLE ${_tableName + 'Daily'}(id INTEGER PRIMARY KEY, Date TEXT, Description TEXT, Deposit TEXT, Withdrawl TEXT, Notes TEXT )''');
+          '''CREATE TABLE ${_tableName + 'Daily'}(id INTEGER PRIMARY KEY, Date TEXT, Description TEXT, Deposit TEXT, Expense TEXT, Notes TEXT )''');
       db.execute(
           '''CREATE TABLE ${_tableName + 'Credit'}(id INTEGER PRIMARY KEY, Date TEXT, Description TEXT, Deposit TEXT, Withdrawl TEXT, Notes TEXT )''');
       db.execute(

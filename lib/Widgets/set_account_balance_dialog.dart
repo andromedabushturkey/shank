@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:money2/money2.dart';
 
 import '../controllers/account_balance_controller.dart';
 import '../models/account_balance.dart';

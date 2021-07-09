@@ -1,6 +1,7 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:get/get.dart';
 
 class FloatingActionButtonWidet extends StatelessWidget {
   @override
@@ -33,7 +34,7 @@ class FloatingActionButtonWidet extends StatelessWidget {
           label: 'Daily Expense',
           labelBackgroundColor: Colors.green[50],
           labelStyle: TextStyle(fontSize: 18),
-          onTap: () => print('test1'),
+          onTap: () => Get.offAndToNamed('/dailyExpenseDetailWidget'),
         ),
         SpeedDialChild(
           child: Icon(

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../Widgets/credit_finance_widget.dart';
-import '../Widgets/daily_finance_widget.dart';
+import '../Widgets/daily_widgets/daily_finance_widget.dart';
 import '../Widgets/floating_action_button_widget.dart';
 import '../Widgets/recurring_finance_widget.dart';
 import '../Widgets/set_account_balance_dialog.dart';
