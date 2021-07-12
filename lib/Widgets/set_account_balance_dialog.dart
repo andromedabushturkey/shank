@@ -71,12 +71,15 @@ Future<void> showSetAccountBalance() async {
                                     where: 'id=?',
                                     whereArgs: [1]);
                                 if (_checkFirstDeposit.length == 0) {
+                                  print('accountBalance: $_accountBalanceMap');
+                                  print(
+                                      'textEditorValue: ${_accountBalanceController.accountBalanceEditor.text}');
                                   await _db.insert(
                                       _tableName, _accountBalanceMap);
 
                                   await _accountBalanceController.getBalance();
-                                  _accountBalanceController.accountBalanceEditor
-                                      .clear();
+                                  // _accountBalanceController.accountBalanceEditor
+                                  //     .clear();
                                   Get.back();
                                 } else {
                                   _db.update(_tableName, _accountBalanceMap,

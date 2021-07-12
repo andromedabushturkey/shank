@@ -1,6 +1,6 @@
 class DailyModel {
   int? _id;
-  DateTime _date;
+  String _date;
   String _description;
   String _deposit;
   String _expense;
@@ -30,7 +30,7 @@ class DailyModel {
     if (_id != null) {
       map['id'] = _id;
     }
-    map['Date'] = _date.toIso8601String();
+    map['Date'] = _date;
     map['Description'] = _description;
     map['Deposit'] = _deposit;
     map['Expense'] = _expense;
